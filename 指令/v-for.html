@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="lib/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li v-for="val in arr">
+				<span v-text="$index"></span>
+				<span v-text="val"></span>
+			</li>
+		</ul>
+		<br>
+		<ul>
+			<li v-for="item in json">
+				{{item}} {{$key}} {{$index}}
+			</li>
+		</ul>
+		<br>
+		<ul>
+			<li v-for="(k,v) in json">
+				{{k}} {{v}}
+			</li>
+		</ul>
+	</div>
+
+	<script>
+		new Vue({
+			el: "#box",
+			data: {
+				msg: "hello Vue",
+				arr: ["apple","orange","banana"],
+				json: {
+					name:"jack",
+					age: 18,
+					job: "student"
+				}
+			}
+		});
+	</script>
+</body>
+</html>

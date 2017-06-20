@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="lib/vue.js"></script>
+	<style>
+		*{margin: 0; padding: 0; border: 0;overflow: hidden;}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div :style="{width:'100px',height:'100px',background:'red', position:'absolute', right:'0', top:'0'}" v-drag></div>
+	</div>
+	
+	<script>
+		Vue.directive("drag",function(){
+			this.el.addEventListener("touchstart", function(event){
+				// console.log(event.changedTouches[0].clientX);
+				// console.log(this.offsetLeft);
+				var disX = event.targetTouches[0].clientX - this.offsetLeft;
+				var disY = event.targetTouches[0].clientY - this.offsetTop
+
+				this.addEventListener("touchmove", function(event){
+					var left = event.changedTouches[0].clientX - disX;
+					var top = event.changedTouches[0].clientY - disY;
+
+					this.style.left = left + 'px';
+					this.style.top = top + 'px';
+				}, false);
+
+				this.addEventListener("touchend", function(){
+					this.removeEventListener("touchmove", function(event){
+						var left = event.changedTouches[0].clientX - disX;
+						var top = event.changedTouches[0].clientY - disY;
+
+						this.style.left = left + 'px';
+						this.style.top = top + 'px';
+					}, false);
+				}, false);
+
+			}, false);
+
+		});
+		new Vue({
+			el: "#box",
+			data: {
+				arr: ["apple", "orange", "banana"],
+				json: {
+					name: "jack",
+					age: 18,
+					job: "student"
+				}
+			}
+		});
+	</script>
+</body>
+</html>

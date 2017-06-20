@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="../lib/vue.js"></script>
+	<style>
+		.myBox{width: 100px;height: 100px;background-color: #f40;}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div :title="msg" class="myBox"></div>
+		<input type="text" :placeholder="msg2">
+		<br>
+		<img :src="src" :alt="msg3" :width="w" :height="h">
+	</div>
+	
+	<script>
+		new Vue({
+			el: "#box",
+			data: {
+				arr: ["apple", "orange", "banana"],
+				json: {
+					name: "jack",
+					age: 18,
+					job: "student"
+				},
+				msg:"这是一个div...",
+				msg2:"输入啊...",
+				src:"https://www.baidu.com/fff",
+				msg3:"图片破损",
+				w:"100px",
+				h:"100px"
+			}
+		});
+	</script>
+</body>
+</html>

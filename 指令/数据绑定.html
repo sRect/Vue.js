@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="lib/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<input type="text" v-model="msg">
+		<br>
+		{{msg}}
+		<br>
+		{{*msg}} <!-- 只绑定一次 -->
+		<br>
+		{{{msg}}} <!-- 转译 -->
+		<br>
+		<span v-text="msg"></span> <!-- 可以防止页面"{}"闪烁 -->
+		<br>
+		<span v-html="msg"></span>
+	</div>
+
+	<script>
+		new Vue({
+			el: "#box",
+			data: {
+				msg: "hello Vue"
+			}
+		});
+	</script>
+</body>
+</html>
