@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="../lib/vue.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li v-for="value in arr| limitBy 1 1">
+				<span v-text="value"></span>
+			</li>
+		</ul>
+		<!-- 
+		可以配合循环使用，限制取几条数据
+		接收两个参数
+		  1. 第一个参数，取几个
+		  2. 第二个参数，从第几个开始取
+		 -->
+	</div>
+	
+	<script>
+		var vm = new Vue({
+			el: "#box",
+			data: {
+				arr: ["orange","apple","banana"]
+			}
+		});
+	</script>
+</body>
+</html>

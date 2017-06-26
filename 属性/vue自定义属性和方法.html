@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="../lib/vue.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	<div id="box">
+	</div>
+	
+	<script>
+		var vm = new Vue({
+			myData: 18,
+			myFn:function(){
+				console.log(this.myData)			
+			},
+			el: "#box",
+			data: {
+				a: 100
+			}
+		});
+
+		vm.$options.myFn();
+	</script>
+</body>
+</html>
