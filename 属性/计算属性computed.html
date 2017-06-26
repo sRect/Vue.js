@@ -6,35 +6,24 @@
 	<title>Document</title>
 	<script src="../lib/vue.js"></script>
 	<style>
-		[v-cloak]{
-			display: none;
-		}
 	</style>
 </head>
 <body>
 	<div id="box">
-		<button @click="push">按钮</button>
-		<ul v-cloak>
-			<li v-for="val in arr" track-by="$index">
-				{{val}}
-			</li>
-		</ul>
+		<span v-text="a"></span>
+		<br>
+		<span v-text="b"></span>
 	</div>
 	
 	<script>
 		new Vue({
 			el: "#box",
 			data: {
-				arr: ["apple","orange","banana"],
-				json: {
-					name:"jack",
-					age: 18,
-					job: "student"
-				}
+				a: 100
 			},
-			methods:{
-				push:function(){
-					this.arr.push("tomato");
+			computed:{
+				b: function(){
+					return this.a+1;
 				}
 			}
 		});

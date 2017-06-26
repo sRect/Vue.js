@@ -6,38 +6,36 @@
 	<title>Document</title>
 	<script src="../lib/vue.js"></script>
 	<style>
-		[v-cloak]{
-			display: none;
-		}
 	</style>
 </head>
 <body>
 	<div id="box">
-		<button @click="push">按钮</button>
-		<ul v-cloak>
-			<li v-for="val in arr" track-by="$index">
-				{{val}}
-			</li>
-		</ul>
+		a:<span v-text="a"></span>
+		<br>
+		b:<span v-text="b"></span>
 	</div>
 	
 	<script>
-		new Vue({
+		var vm = new Vue({
 			el: "#box",
 			data: {
-				arr: ["apple","orange","banana"],
-				json: {
-					name:"jack",
-					age: 18,
-					job: "student"
-				}
+				a: 100
 			},
-			methods:{
-				push:function(){
-					this.arr.push("tomato");
+			computed: {
+				b: {
+					get: function() {
+						return this.a + 1;
+					},
+					set: function(value){ //这个value就是下面给的值
+						this.a = value;
+					}
 				}
 			}
 		});
+
+		document.addEventListener("click", function(){
+			vm.b = 20;
+		}, false);
 	</script>
 </body>
 </html>

@@ -6,36 +6,21 @@
 	<title>Document</title>
 	<script src="../lib/vue.js"></script>
 	<style>
-		[v-cloak]{
-			display: none;
-		}
+		.red{color: #fff;}
+		.blue{background-color: blue;}
 	</style>
 </head>
 <body>
 	<div id="box">
-		<button @click="push">按钮</button>
-		<ul v-cloak>
-			<li v-for="val in arr" track-by="$index">
-				{{val}}
-			</li>
-		</ul>
+		<p :class="{red:a,blue:b}">fneriouvsdicn</p>
 	</div>
 	
 	<script>
 		new Vue({
 			el: "#box",
 			data: {
-				arr: ["apple","orange","banana"],
-				json: {
-					name:"jack",
-					age: 18,
-					job: "student"
-				}
-			},
-			methods:{
-				push:function(){
-					this.arr.push("tomato");
-				}
+				a:true,
+				b:true
 			}
 		});
 	</script>
