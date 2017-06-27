@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<style>
+	.content {
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+	.fade-transition {
+		transition: 1s all ease;
+	}
+	.fade-enter {
+		opacity: 0;
+	}
+	.fade-leave {
+		opacity: 0;
+	}
+	</style>
+	<script src="../lib/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<input type="button" value="按钮" @click="toggle">	
+		<hr>	
+		<div class="content" v-show="flag" transition="fade"></div>
+	</div>
+
+	<script>
+		var vm = new Vue({
+			el: "#box",
+			data: {
+				flag: true
+			},
+			methods: {
+				toggle: function() {
+					this.flag = !this.flag
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="../lib/vue.js"></script>
+	<link rel="stylesheet" href="../bower_components/animate.css/animate.css">
+	<style>
+		#box{
+			width: 400px;
+			margin: 0 auto;
+		}
+		.wrap{
+			width: 100px;
+			height: 100px;
+			background-color: deeppink;
+			margin-bottom: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<button @click="show()">按钮</button>
+		<br>
+		<div class="wrap animated" v-show="flag" transition="bounce"></div>
+		<div class="wrap animated infinite" v-show="flag" transition="swing"></div>
+		<div class="wrap animated infinite" v-show="flag" transition="pulse"></div>
+	</div>
+
+	<script>
+		new Vue({
+			el: "#box",
+			data: {
+				flag: false
+			},
+			methods: {
+				show: function() {
+					this.flag = !this.flag;
+				}
+			},
+			transitions: {
+				bounce:{
+					enterClass: "zoomInLeft",
+					leaveClass: "zoomOutRight"
+				},
+				swing:{
+					enterClass: "swing",
+					leaveClass: "jello"
+				},
+				pulse: {
+					enterClass: "bounceIn",
+					leaveClass: "wobble"
+				}
+			}
+		})
+	</script>
+</body>
+</html>
