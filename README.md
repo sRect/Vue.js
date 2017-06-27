@@ -7,9 +7,9 @@
 	-过渡(动画)
 	-组件
 
-## code
+## Code Example
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,25 +32,24 @@
 			</li>
 		</ul>
 	</div>
-	
-	<script>
-		new Vue({
-			el: "#box",
-			data: {
-				arr: ["apple","orange","banana"],
-				json: {
-					name:"jack",
-					age: 18,
-					job: "student"
-				}
-			},
-			methods:{
-				push:function(){
-					this.arr.push("tomato");
-				}
-			}
-		});
-	</script>
 </body>
 </html>
+```
+```JavaScript
+new Vue({
+	el: "#box",
+	data: {
+		arr: ["apple","orange","banana"],
+		json: {
+			name:"jack",
+			age: 18,
+			job: "student"
+		}
+	},
+	methods:{
+		push:function(){
+			this.arr.push("tomato");
+		}
+	}
+});
 ```
