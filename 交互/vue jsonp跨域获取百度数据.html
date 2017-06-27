@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <style>
+        .gray {
+            background-color: #ccc;
+        }
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="box">
+    <input type="text " @keyup="get($event)" @keyup.down="changeDown($event)" @keyup.up="changeUp()"  v-model="msg">
+    <ul v-for="item in arr">
+        <li v-text="item" :class="{gray:nowIndex == $index}"></li>
+    </ul>
+    <p v-show="arr.length == 0">暂时没有查询到数据</p>
+</div>
+<script>
+    new Vue({
+        el: "#box",
+        data: {
+            msg: "",
+            arr: [],
+            nowIndex: -1
+        },
+        methods: {
+            get: function (e) {
+                if (e.keyCode == 40 || e.keyCode == 38) {
+                    return;
+                };
+
+                // if(e.keyCode==13){
+                //     window.open('https://www.baidu.com/s?wd='+this.msg);
+                //     this.msg='';
+                // };
+
+                this.$http.jsonp("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su", {
+                    wd: this.msg
+                }, {
+                    jsonp: 'cb'
+                }).then(function (resolve) {
+                    console.log(resolve.status)
+                    console.log(resolve.data)
+
+                    this.arr = resolve.data.s;
+                }).catch(function (reject) {
+                    console.log(reject)
+                });
+            },
+            changeDown: function(e){
+                this.nowIndex++;
+                if (this.nowIndex == this.arr.length) {
+                    this.nowIndex = -1;
+                };
+            },
+            changeUp: function(){
+                this.nowIndex--;
+                if (this.nowIndex == -1) {
+                    this.nowIndex = this.arr.length;
+                };
+            }
+        }
+    });
+</script>
+</body>
+</html>

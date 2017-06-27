@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="../lib/vue.js"></script>
+	<script src="../bower_components/vue-resource/dist/vue-resource.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="button" value="get" @click="show()">
+	</div>
+	
+	<script>
+		var vm = new Vue({
+			el: "#box",
+			data: {
+				
+			},
+			methods:{
+				show: function(e){
+					this.$http.get("a.txt").then(function(resolve){
+						console.log(resolve)
+						console.log(resolve.status);
+						console.log(resolve.data);
+					}),function(reject){
+						console.log(reject)
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
