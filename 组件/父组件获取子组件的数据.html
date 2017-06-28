@@ -54,6 +54,7 @@
 								template: "#child",
 								methods: {
 									send: function() {
+										// 注意:$emit的第一个参数，不能出现大写，否则数据无法传输到父组件里去，并且不报错
 										this.$emit("child",this.msgChild);
 									}
 								}
