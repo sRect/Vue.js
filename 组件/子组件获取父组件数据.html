@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="../bower_components//vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<aaa></aaa>
+	</div>
+		
+	<template id="father">
+		<h1>我是父级</h1>
+		<bbb :m="msgFather1" :t="msgFather2"></bbb>
+	</template>
+	
+	<template id="son">
+		<h2>我是子级</h2>
+		<span>拿到父级数据1：{{m}}</span>
+		<br>
+		<span>拿到父级数据2：{{t}}</span>
+	</template>
+
+	<script>
+		// 默认情况下，子组件不能访问父组件数据
+		new Vue({
+			data: {},
+			components: {
+				"aaa": {
+					data: function() {
+						return {
+							msgFather1: "我是父级的数据1",
+							msgFather2: "我是父级的数据2",
+						}
+					},
+					template: "#father",
+					components: {
+						"bbb": {
+							// props:['m','t'],
+							props:{
+								'm':String,
+								't':String
+							},
+							data: () => {
+								return {
+									msgSon: '我是子级的数据'
+								}
+							},
+							template: "#son"
+						}
+					}
+				}
+			}
+		}).$mount("#box");
+	</script>
+</body>
+</html>

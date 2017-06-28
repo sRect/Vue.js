@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="../bower_components//vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<aaa></aaa>
+	</div>
+		
+	<template id="father">
+		<h1>我是父级</h1>
+		<bbb></bbb>
+	</template>
+	
+	<template id="son">
+		<h2>我是子级</h2>
+	</template>
+
+	<script>
+		new Vue({
+			data: {},
+			components: {
+				"aaa": {
+					data: function() {
+						return {
+							msgFather: "我是父级的数据"
+						}
+					},
+					template: "#father",
+					components: {
+						"bbb": {
+							data: () => {
+								return {
+									msgSon: '我是子级的数据'
+								}
+							},
+							template: "#son"
+						}
+					}
+				}
+			}
+		}).$mount("#box");
+	</script>
+</body>
+</html>
