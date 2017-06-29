@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<aaa>
+			<span slot="span">我是一个span标签</span>
+			<ul slot="ul">
+				<li>q</li>
+				<li>w</li>
+				<li>e</li>
+			</ul>
+		</aaa>
+		<hr>
+		<aaa></aaa>
+	</div>
+
+	<template id="aaa">
+		<span>hello</span>
+		<slot name="span">这是默认情况1</slot>
+		<slot name="ul">这是默认情况2</slot>
+	</template>
+
+	<script>
+		new Vue({
+			el: '#box',
+			components:{
+				"aaa": {
+					template: "#aaa"
+				}
+			}
+		});
+	</script>
+</body>
+</html>
