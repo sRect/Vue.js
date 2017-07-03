@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简易留言板</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../bower_components/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<inputcontent></inputcontent>
+	</div>
+
+	<template id="inputcontent">
+		<div class="container-fluid">
+			<form>
+				<div class="form-group">
+					<label for="username">用户名</label>
+					<input type="text" class="form-control" id="username" placeholder="请输入您的用户名" v-model="username">
+				</div>
+				<div class="form-group">
+					<label for="age">年龄</label>
+					<input type="text" class="form-control" id="age" placeholder="请输入您的年龄" v-model="age">
+				</div>
+				<button type="button" class="btn btn-primary" @click="add()">添加</button>
+				<button type="reset" class="btn btn-warning">重置</button>
+			</form>
+			<hr>
+			<table class="table table-striped tabel-bordered table-hover table-responsive">
+				<caption class="h4 text-primary text-center">用户信息表</caption>
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>名字</th>
+						<th>年龄</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-show="arr.length == 0">
+						<td colspan="4" class="bg-info">
+							<p class="text-center">暂无信息...</p>
+						</td>
+					</tr>
+					<tr v-for="value in arr">
+						<td v-text="$index+1"></td>
+						<td v-text="value.username"></td>
+						<td v-text="value.age"></td>
+						<td><button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" @click="syncIndex($index)">删除</button></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr v-show="arr.length != 0">
+						<td colspan="4 clearfix">
+							<button class="btn btn-default btn-danger pull-right" data-toggle="modal" data-target="#myModal" @click="nowIndex = -1">删除全部</button>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<h4 class="text-danger">确认删除吗？</h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-warning" @click="deleteMsg(nowIndex)">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script>
+		new Vue({
+			el: '#box',
+			components: {
+				"inputcontent": {
+					data: function(){
+						return {
+							username: '',
+							age: '',
+							arr: [],
+							nowIndex: ''
+						}
+					},
+					template: "#inputcontent",
+					methods: {
+						add: function(){
+							if (this.username && this.age) {
+								var json = {
+									"username": this.username,
+									"age": this.age
+								}
+								this.arr.push(json);
+								this.username = "";
+								this.age = "";
+							};
+						},
+						syncIndex: function(arg){
+							this.nowIndex = arg;
+						},
+						deleteMsg: function(arg){
+							if (arg !== -1) {
+								this.arr.splice(arg, 1);
+							}else{
+								this.arr = [];
+							};
+							
+
+							$('#myModal').modal('hide');
+						}
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
