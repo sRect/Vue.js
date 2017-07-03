@@ -17,6 +17,7 @@
   "dependencies": {
     "vue": "1.0.28",
     "vue-resource": "https://github.com/pagekit/vue-resource.git#^1.3.4",
-    "animate.css": "^3.5.2"
+    "animate.css": "^3.5.2",
+    "vue-router": "0.7.13"
   }
 }
