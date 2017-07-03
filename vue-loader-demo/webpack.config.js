@@ -6,8 +6,8 @@ module.exports={
 	},
 	module: {
 		loaders: [
-			{test:/\.vue$/, loader:'vue-loader'},
-			{test:/\.js$/, loader: 'babel', exclude: /node_modules/},
+			{test:/\.vue$/, loader:'vue'},
+			{test:/\.js$/, loader: 'babel', exclude: /node_modules/}
 		]
 	},
 	babel: {
