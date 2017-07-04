@@ -2,7 +2,7 @@ module.exports={
 	entry: './main.js', //入口文件
 	output: { //出口
 		path: __dirname,
-		filename: 'bundle.js'
+		filename: 'dist/bundle.js'
 	},
 	module: {
 		loaders: [
