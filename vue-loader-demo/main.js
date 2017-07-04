@@ -13,6 +13,10 @@ router.map(routerConfig);
 
 router.start(App, '#app');
 
+router.redirect({
+	'/': '/home/login'
+});
+
 
 // new Vue({
 // 	el:'body',
