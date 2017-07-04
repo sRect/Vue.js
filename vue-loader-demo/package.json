@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --port 8082"
+    "dev": "webpack-dev-server --inline --hot --port 8082",
+    "build":"webpack -p"
   },
   "keywords": [],
   "author": "",
@@ -20,8 +21,8 @@
     "vue-html-loader": "^1.2.3",
     "vue-loader": "^8.5.4",
     "vue-style-loader": "^1.0.0",
-    "webpack": "^1.15.0",
-    "webpack-dev-server": "^1.16.5"
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "vue": "^1.0.28"
