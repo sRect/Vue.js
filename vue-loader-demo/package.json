@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --port 8082",
-    "build":"webpack -p"
+    "build": "webpack -p"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +25,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "vue": "^1.0.28"
+    "vue": "^1.0.28",
+    "vue-router": "^0.7.13"
   }
 }
