@@ -52,13 +52,13 @@
 						<td v-text="$index+1"></td>
 						<td v-text="value.username"></td>
 						<td v-text="value.age"></td>
-						<td><button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" @click="syncIndex($index)">删除</button></td>
+						<td><button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" @click="syncIndex($index,textInfo = '')">删除</button></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr v-show="arr.length != 0">
 						<td colspan="4 clearfix">
-							<button class="btn btn-default btn-danger pull-right" data-toggle="modal" data-target="#myModal" @click="nowIndex = -1">删除全部</button>
+							<button class="btn btn-default btn-danger pull-right" data-toggle="modal" data-target="#myModal" @click="nowIndex = -1,textInfo = '全部'">删除全部</button>
 						</td>
 					</tr>
 				</tfoot>
@@ -68,11 +68,11 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
-							<h4 class="text-danger">确认删除吗？</h4>
+							<h4 class="text-danger">确认删除<span v-text="textInfo"></span>吗？</h4>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-warning" @click="deleteMsg(nowIndex)">确定</button>
+							<button data-dismiss="modal" type="button" class="btn btn-warning" @click="deleteMsg(nowIndex)">确定</button>
 						</div>
 					</div>
 				</div>
@@ -90,7 +90,8 @@
 							username: '',
 							age: '',
 							arr: [],
-							nowIndex: ''
+							nowIndex: '',
+							textInfo: ''
 						}
 					},
 					template: "#inputcontent",
@@ -115,9 +116,6 @@
 							}else{
 								this.arr = [];
 							};
-							
-
-							$('#myModal').modal('hide');
 						}
 					}
 				}
