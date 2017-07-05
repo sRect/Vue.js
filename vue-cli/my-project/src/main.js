@@ -17,11 +17,12 @@ const router = new VueRouter({
 	routes
 })
 
-const app = new Vue({
-	router
-}).$mount('#app')
+// const app = new Vue({
+// 	router
+// }).$mount('#app')
 
-// new Vue({
-//   el: '#app',
-//   // render: h => h(App)
-// })
+new Vue({
+	router,
+	el: '#app',
+	render: h => h(App)
+})
