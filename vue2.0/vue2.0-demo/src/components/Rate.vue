@@ -8,7 +8,7 @@
 		</div>
 
 		<div>
-			<router-link to='/rate/naveMenu'>导航菜单</router-link>
+			<router-link to='/rate/navMenu'>导航菜单</router-link>
 			<div>
 				<router-view></router-view>
 			</div>

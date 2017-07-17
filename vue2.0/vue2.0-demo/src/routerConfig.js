@@ -15,7 +15,7 @@ export default [
 		path: '/rate', 
 		component: Rate,
 		children: [
-			{path: '/navMenu',component: NavMenu}
+			{path: 'navMenu',component: NavMenu}
 		]
 	},
 	{path: '/upload', component: Upload},
