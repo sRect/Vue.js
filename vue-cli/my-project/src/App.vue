@@ -13,7 +13,18 @@
     </li>
   </ul>
   <router-view></router-view>
+  
+  <hr>
+
+  <box></box>
+
 </div>
+</template>
+
+<template id="#box">
+  <div>
+    <p>这是一个盒子</p>
+  </div>
 </template>
 
 <script>
@@ -30,6 +41,12 @@
 //   //   }
 //   // }
 // }
+  var Box = {
+    template: '#box',
+  }
+
+  Vue.component('box', Box)
+
 </script>
 
 <style>
