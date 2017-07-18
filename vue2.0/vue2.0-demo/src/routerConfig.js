@@ -6,6 +6,7 @@ import ProgressVue from './components/Progress.vue'
 import MessageBox from './components/MessageBox.vue'
 import Carousel from './components/Carousel.vue'
 import NavMenu from './components/NavMenu.vue'
+import TransitionGroup from './components/TransitionGroup.vue'
 
 export default [
 	{path: '/carousel', component: Carousel},
@@ -21,6 +22,7 @@ export default [
 	{path: '/upload', component: Upload},
 	{path: '/progressVue', component: ProgressVue},
 	{path: '/messageBox', component: MessageBox},
+	{path: '/transitionGroup',component:TransitionGroup},
 	{path: '*', redirect:'/progressVue'}
 ]
 

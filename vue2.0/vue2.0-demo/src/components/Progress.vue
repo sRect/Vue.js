@@ -14,14 +14,14 @@
 		},
 		methods: {
 			change(){
-				let self = this;
+				// let self = this;
 				let timer = null;
 				let _handle = () => {
-					if(self.num < 100) {
-						self.num+=10;
+					if(this.num < 100) {
+						this.num+=10;
 						this.sta='';
-					}else if(self.num = 100){
-						self.num = 0;
+					}else if(this.num = 100){
+						this.num = 0;
 						this.sta = "success"
 					}
 				};

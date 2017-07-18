@@ -24,8 +24,14 @@
       <li>
         <router-link to="/messageBox">messageBox</router-link>
       </li>
+      <li>
+        <router-link to="/transitionGroup">transitionGroup</router-link>
+      </li>
     </ul>
-    <router-view></router-view>
+    <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+      <router-view></router-view>
+    </transition>
+    
   </div>
 </template>
 
@@ -50,6 +56,7 @@
 </script>
 
 <style scoped lang="less">
+ @import '../node_modules/animate.css/animate.min.css';
   .router-link-active{
     color: #f40;
     font-size: 20px;
