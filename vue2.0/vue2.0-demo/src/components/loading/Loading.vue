@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<span>{{msg}}</span>
 		<div class="loadEffect">
 	        <span></span>
 	        <span></span>
@@ -14,7 +15,13 @@
 </template>
 
 <script>
-	
+	export default {
+		data(){
+			return {
+				msg: '自定义全局组件'
+			}
+		}
+	}
 </script>
 
 <style scoped>
@@ -23,14 +30,14 @@
         height: 100px;
         position: relative;
         margin: 0 auto;
-        margin-top:100px;
+        margin-top:10px;
     }
     .loadEffect span{
         display: inline-block;
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background: lightgreen;
+        background: deepskyblue;
         position: absolute;
         -webkit-animation: load 1.04s ease infinite;
     }
