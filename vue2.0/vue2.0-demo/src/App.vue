@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <ButtonVue></ButtonVue>
-    
-    <Loading></Loading>
-
     <ul>
       <li>
         <router-link to="/carousel">轮播图</router-link>
