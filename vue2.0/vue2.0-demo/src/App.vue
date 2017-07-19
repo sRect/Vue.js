@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <ButtonVue></ButtonVue>
+    
+    <Loading></Loading>
 
     <ul>
       <li>
