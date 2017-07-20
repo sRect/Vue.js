@@ -19,16 +19,16 @@ module.exports = {
     }, {
       test: /\.js$/,
       loader: 'babel-loader',
-      exclude: /node_modules/,
-      options: {
-        presets: ['es2015']
-      }
+      exclude: /node_modules/
     }, {
       test: /\.less$/,
       loader: 'less-loader'
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader'
+    }, {
+      test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+      loader: 'file-loader'
     }, {
       test: /\.(png|jpg|gif|svg)$/,
       loader: 'file-loader',

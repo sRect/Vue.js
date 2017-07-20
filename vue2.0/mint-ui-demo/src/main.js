@@ -1,22 +1,21 @@
 import Vue from 'vue'
-
+import VueRouter from 'vue-router'
 import App from './App.vue'
 
-// import './mint-ui.js'
+import MintUI from 'mint-ui'
+import '../node_modules/mint-ui/lib/style.min.css'
 
+import routes from './router.config.js'
 
-import {
-	Button,
-	Header,
-	Toast
-} from 'mint-ui'
+Vue.use(VueRouter)
+Vue.use(MintUI)
 
-
-Vue.component(Button.name, Button)
-Vue.component(Header.name, Header)
-Vue.component(Toast.name, Toast)
+const router = new VueRouter({
+	routes
+})
 
 new Vue({
+	router,
 	el: '#app',
 	render: h => h(App)
 })
