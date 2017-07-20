@@ -1,0 +1,40 @@
+body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,a,code,em,img,q,small,strong,dd,dl,dt,li,ol,ul,fieldset,form,label,table,tbody,tr,th,td,input{margin:0;padding:0;border:0}
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,b,i,span,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ font-family: Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC", "\5b8b\4f53", sans-serif;}
+body{width: 100%;}
+body, html {
+  font-size: 16px;
+  color: #333;
+  max-width: 1080px;
+  min-width: 320px;
+  margin: 0 auto; 
+  background-color: #F5F5F5;
+  -webkit-overflow-scrolling: touch;
+  -webkit-user-select: none; /*禁止用户选择文字*/
+  -ms-touch-action: manipulation; /* 禁用通过双击放大某些元素 */
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%; /* 禁用字号自动调整 */
+  -ms-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+a,a:active,a:hover,a:focus,a:visited{text-decoration:none}
+a,img{-webkit-touch-callout:none}
+ol,ul,li{list-style:none}
+textarea,input[type="password"],input[type="text"],input[type="number"]{resize:none;outline:0;-webkit-appearance:none;white-space:pre-wrap;word-wrap:break-word;}
+
+.fl{float: left;}
+.fr{float: right;}
+.clearfix:after { content: ''; display: block; height: 0; clear: both; }
+.clearfix { zoom: 1; }
+
+// 连续英文、数字换行
+.wordwrap { word-break: break-all; word-wrap: break-word; }
+// 单行文字超出显示省略号
+.omg{overflow: hidden; text-overflow: ellipsis; white-space:nowrap;}
+// 横向滚动 
+.responsiveBox {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    -webkit-backface-visibility: hidden;
+    -webkit-overflow-scrolling: touch;
+}

@@ -1,14 +1,35 @@
 <template>
 	<div class="box" id="circle">
 		<ul>
-			<li>
-				<canvas id="one" width="100" height="100"></canvas>
+			<li class="clearfix">
+				<div class="fl">
+					<canvas id="one" width="100" height="100"></canvas>
+				</div>
+				<div class="fr">
+					<p><span>未　　售</span><b>39</b>套</p>
+					<p><span>面　　积</span><b>100</b>平</p>
+					<p><span>总　　价</span><b>3339</b>万元</p>
+				</div>
 			</li>
-			<li>
-				<canvas id="two" width="100" height="100"></canvas>
+			<li class="clearfix">
+				<div class="fl">
+					<canvas id="two" width="100" height="100"></canvas>
+				</div>
+				<div class="fr">
+					<p><span>大定已签</span><b>39</b>套</p>
+					<p><span>面　　积</span><b>1050</b>平</p>
+					<p><span>总　　价</span><b>3977</b>万元</p>
+				</div>
 			</li>
-			<li>
-				<canvas id="three" width="100" height="100"></canvas>
+			<li class="clearfix">
+				<div class="fl">
+					<canvas id="three" width="100" height="100"></canvas>
+				</div>
+				<div class="fr">
+					<p><span>大定未签</span><b>39</b>套</p>
+					<p><span>面　　积</span><b>1050</b>平</p>
+					<p><span>总　　价</span><b>3977</b>万元</p>
+				</div>
 			</li>
 		</ul>
 	</div>
@@ -79,7 +100,7 @@
 		mounted(){
 			this.drawCircle({
 			    id: 'one',
-			    color: '#0000ff',
+			    color: '#3BAFC1',
 			    angle: 0.5,
 			    lineWidth: 5
 			});
@@ -87,30 +108,40 @@
 			this.drawCircle({
 			    id: 'two',
 			    angle: 0.75,
-			    color: '#ff0000',
-			    lineWidth: 12
+			    color: '#F2AD2E',
+			    lineWidth: 5
 			});
 
 			this.drawCircle({
 			    id: 'three',
-			    angle: 1,
-			    lineWidth: 15,
-			    color: 'grd'
+			    angle: 0.9,
+			    lineWidth: 5,
+			    color: '#42C29D'
 			});
 		}
 	}
 </script>
 
-<style scoped>
+<style scoped lang='less'>
 	.box{
 		margin-top: 68px;
+		padding: 0 20px;
+		>ul{
+			margin: 0;
+			padding: 0;
+			>li {
+			    margin: 0 0 15px 0;
+			    padding: 0;
+			    >.fl{
+			    	margin-right: 20px;
+			    }
+			    >.fr{
+			    	>p{
+			    		margin-top: 0;
+			    	}
+			    }
+			}
+		}
 	}
-	ul,li {
-	    list-style: none;
-	    margin: 0;
-	    padding: 0;
-	}
-	ul li {
-	    text-align: center;
-	}
+	
 </style>

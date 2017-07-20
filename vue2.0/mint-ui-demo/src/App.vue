@@ -21,7 +21,5 @@ export default {
 </script>
 
 <style>
-	body{
-		background-color: #f5f5f5;
-	}
+	@import './assets/less/public.less';
 </style>

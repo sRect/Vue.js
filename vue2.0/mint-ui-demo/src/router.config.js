@@ -9,5 +9,5 @@ export default [{
 	component: Circle
 }, {
 	path: '*',
-	component: Tabbar
+	redirect: '/tabbar'
 }]
