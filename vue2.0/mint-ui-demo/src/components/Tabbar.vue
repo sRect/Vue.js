@@ -2,7 +2,8 @@
 	<div id="tabbar">
 		<mt-tabbar fixed="fixed" v-model="selected" :class="{bgc: true}">
 			<mt-tab-item id="外卖">
-				<p class="czs-tag my-icon"></p>外卖
+				<p class="czs-tag my-icon"></p>
+				<router-link to="/tabbar/list">外卖</router-link>
 			</mt-tab-item>
 			<mt-tab-item id="订单">
 				<p class="czs-bell my-icon"></p>订单
@@ -14,6 +15,10 @@
 				<p class="czs-user my-icon"></p>我的
 			</mt-tab-item>
 		</mt-tabbar>
+
+		<div class="content">
+			<router-view></router-view>
+		</div>
 	</div>
 </template>
 
@@ -27,13 +32,16 @@
 			}
 		},
 		mounted(){
-			this.selected = "订单"
+			this.selected = "外卖"
 		}
 	}
 </script>
 
 <style scoped>
 	@import '../assets/fonts/caomei1.2.1/style.css';
+	.content{
+		margin-top: 66px;
+	}
 	.my-icon{
 		margin: 0 0 6px 0;
 		font-size: 20px;
