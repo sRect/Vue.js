@@ -6,10 +6,12 @@
 				<router-link to="/tabbar/list">外卖</router-link>
 			</mt-tab-item>
 			<mt-tab-item id="订单">
-				<p class="czs-bell my-icon"></p>订单
+				<p class="czs-bell my-icon"></p>
+				<router-link to="/tabbar/swipe">订单</router-link>
 			</mt-tab-item>
 			<mt-tab-item id="发现">
-				<p class="czs-pokemon-ball my-icon"></p>发现
+				<p class="czs-pokemon-ball my-icon"></p>
+				<router-link to="/tabbar/loadmore">发现</router-link>
 			</mt-tab-item>
 			<mt-tab-item id="我的">
 				<p class="czs-user my-icon"></p>我的
