@@ -1,0 +1,16 @@
+{
+  "name": "json-server-demo",
+  "version": "1.0.0",
+  "description": "json server demo",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "server": "cd static && nodemon server.js",
+    "dserver": "cd dynamic && nodemon server.js"
+  },
+  "devDependencies": {
+    "json-server": "^0.11.2",
+    "mockjs": "^1.0.1-beta3",
+    "nodemon": "^1.11.0"
+  }
+}
