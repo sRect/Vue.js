@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <button @click="increment">增加</button>
-    <!-- <button @click="decrement">减少</button> -->
+    <button @click="decrement">减少</button>
+    <button @click="incrementOdd">偶数增加</button>
 
     <p>当前为：{{count}}</p>
+    <p>当前为: {{isOdd}}</p>
   </div>
 </template>
 
@@ -12,10 +14,13 @@ import {mapGetters, mapActions} from 'vuex'
 
 export default {
   computed:mapGetters([
-    "count"
+    "count",
+    "isOdd"
   ]),
   methods:mapActions([
-    "increment"
+    "increment",
+    "decrement",
+    "incrementOdd"
   ])
 }
 </script>
