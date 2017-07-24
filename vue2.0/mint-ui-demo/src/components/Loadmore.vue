@@ -1,9 +1,9 @@
 <template>
 	<div id="loadmore" class="loadmore">
 		<mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange">
-			<div class="distanceIndex">
+			<!-- <div class="distanceIndex">
 				{{distanceIndex}}
-			</div>
+			</div> -->
 			<div class="content">
 				<ul>
 					<li v-for="item in list">{{ item }}</li>

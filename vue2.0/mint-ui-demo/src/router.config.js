@@ -3,6 +3,7 @@ import Circle from './components/Circle.vue'
 import List from './components/List.vue'
 import Swipe from './components/Swipe.vue'
 import Loadmore from './components/Loadmore.vue'
+import Datetime from './components/Datetime.vue'
 
 export default [{
 	path: '/tabbar',
@@ -16,6 +17,9 @@ export default [{
 	}, {
 		path: 'loadmore',
 		component: Loadmore
+	}, {
+		path: 'datetime',
+		component: Datetime
 	}]
 }, {
 	path: '/circle',

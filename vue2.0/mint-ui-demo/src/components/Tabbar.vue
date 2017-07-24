@@ -14,7 +14,8 @@
 				<router-link to="/tabbar/loadmore">发现</router-link>
 			</mt-tab-item>
 			<mt-tab-item id="我的">
-				<p class="czs-user my-icon"></p>我的
+				<p class="czs-user my-icon"></p>
+				<router-link to="/tabbar/datetime">我的</router-link>
 			</mt-tab-item>
 		</mt-tabbar>
 
