@@ -1,0 +1,51 @@
+.fl{
+	float: left;
+}
+
+.fr{
+	float: right;
+}
+
+.clearfix:after { content: ''; display: block; height: 0; clear: both; }
+.clearfix { zoom: 1; }
+
+// 连续英文、数字换行
+.wordwrap { word-break: break-all; word-wrap: break-word; }
+// 单行文字超出显示省略号
+.omg{overflow: hidden; text-overflow: ellipsis; white-space:nowrap;}
+
+body{
+	background-color: #f8f8f8 !important;
+}
+
+.bodyDialog{
+	overflow: hidden;
+}
+
+// 横向滚动 
+.responsiveBox {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    -webkit-backface-visibility: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+@bdColor: #bababa;
+
+.boxSizing(){
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+// td换行
+.td {
+	white-space: pre-wrap;     
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;    
+	white-space: -o-pre-wrap;  
+	word-wrap: break-word;
+}

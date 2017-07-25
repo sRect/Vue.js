@@ -1,0 +1,260 @@
+@import url('public.less');
+
+.wrap{
+	>.inWrap{
+		>.inWrapTop{
+			width: 1000px;
+			margin: 0 auto;
+			padding: 14px 0;
+			height: 42px;
+			>.search{
+				height: 100%;
+				>.searchInput{
+					border: 1px solid @bdColor;
+					border-right: 0;
+					padding: 12px 20px;
+					height: 16px;
+					width: 494px;
+					background-color: #fff;
+				}
+				>.searchInput::-webkit-input-placeholder{
+					color: #8a8a8a;
+				}
+				>.searchBtn{
+					font-size: 20px;
+					width: 118px;
+					height: 100%;
+					color: #fff;
+					background-color: #ed9127;
+					cursor: pointer;
+				}
+			}
+			>.toExcel{
+				height: 100%;
+				>.toExcelBtn{
+					font-size: 16px;
+					color: #333;
+					display: block;
+					height: 100%;
+					width: 88px;
+					text-align: center;
+					border: 1px solid @bdColor;
+					-webkit-border-radius: 4px;
+					-moz-border-radius: 4px;
+					-ms-border-radius: 4px;
+					-o-border-radius: 4px;
+					border-radius: 4px;
+					cursor: pointer;
+				}
+				>.toExcelBtn:hover,>.toExcelBtn:active,>.toExcelBtn:focus{
+					color: #fff;
+					background-color: #ed9127;
+					border: 1px solid #ed9127;
+				}
+			}
+		}
+		>.inWrapBottom{
+			width: 100%;
+			background-color: #fff;
+			>.bgWrap{
+				width: 1000px;
+				padding: 40px 0;
+				margin: 0 auto;
+				>.box{
+					height: 40px;
+					line-height: 40px;
+					>.filterBtn{
+						height: 100%;
+						font-size: 16px;
+						>.status{
+							// width: 400px;
+							>input[type=button]{
+								font-size: 16px;
+								// display: inline-block;
+								// width: 18%;
+								padding: 0;
+								margin: 0 20px;
+								cursor: pointer;
+							}
+							>input[type=button]:last-child{
+								margin-right: 0;
+							}
+							>.active{
+								color: #ed9127;
+							}
+						}
+					}
+					>.filterTime{
+						font-size: 16px;
+						// width: 382px;
+						height: 100%;
+						>.timeWrap{
+							height: 100%;
+							>.startTime,>.endTime{
+								position: relative;
+								// height: 100%;
+								// border: 1px solid @bdColor;
+								// margin: 0 12px 0 22px;
+								// padding: 14px 12px;
+								// .boxSizing();
+								// cursor: pointer;
+								>input{
+									height: 100%;
+									border: 1px solid @bdColor;
+									margin: 0 12px;
+									padding: 12px;
+									.boxSizing();
+									font-size: 12px;
+									width: 118px;
+									cursor: pointer;
+								}
+							}
+							>.endTime{
+								>input{
+									margin-right: 0;
+								}
+							}
+							>.startTime:after,>.endTime:after{
+								content:'';
+								width:10px;
+								height:10px;
+								position:absolute;
+								right:10px;
+								top:50%;
+								border-right:1px solid @bdColor;
+								border-bottom:1px solid @bdColor;
+								-webkit-transform:translateY(-70%) rotate(45deg);
+								-moz-transform:translateY(-70%) rotate(45deg);
+								-ms-transform:translateY(-70%) rotate(45deg);
+								-o-transform:translateY(-70%) rotate(45deg);
+								transform:translateY(-70%) rotate(45deg);
+							}
+							>.startTime:after{
+								right:22px;
+							}
+						}
+					}
+				}
+				>.tableWrap{
+					margin-top: 40px;
+					>table{
+						width: 1268px;
+						table-layout:fixed;
+						>thead{
+							background-color: @bdColor;
+							>tr{
+								>th{
+									font-size: 14px;
+									width: 96px;
+									height: 70px;
+									// height: 92px;
+									// line-height: 92px;
+									display: inline-block;
+									text-align: center;
+									padding: 5px 9px;
+									.boxSizing();
+									// background-color: @bdColor;
+									display: table-cell;    
+	                				vertical-align: middle; 
+								}
+							}
+						}
+						>tbody{
+							>tr{
+								border-bottom: 1px solid @bdColor;
+								// position: relative;
+								>td{
+									width: 96px;
+									height: 92px;
+									// line-height: 92px;
+									display: inline-block;
+									text-align: center;
+									padding: 5px 9px;
+									.boxSizing();
+									display: table-cell;    
+	                				vertical-align: middle; 
+	                				>.more{
+										font-size: 20px;
+										color: #eb8611;
+										text-align: center;
+										width: 30px;
+										height: 30px;
+										border: 1px solid #eb8611;
+										-webkit-border-radius: 50%;
+										-moz-border-radius: 50%;
+										-ms-border-radius: 50%;
+										-o-border-radius: 50%;
+										border-radius: 50%;
+										margin: 0 auto;
+										position: relative;
+										cursor: default;
+										>.handleWrap{
+											width: 83px;
+											height: 133px;
+											border: 1px solid @bdColor;
+											background-color: #f8f8f8;
+											-webkit-border-radius: 4px;
+											-moz-border-radius: 4px;
+											-ms-border-radius: 4px;
+											-o-border-radius: 4px;
+											border-radius: 4px;
+											position: absolute;
+											left: -70px;
+											top: 0;
+											z-index: 1000;
+											padding: 14px 0;
+											.boxSizing();
+											display: none;
+											>a{
+												font-size: 14px;
+												color: #333;
+												display: block;
+												width: 100%;
+												height: 26px;
+												line-height: 26px;
+												margin-bottom: 13px;
+												cursor: pointer;
+											}
+											>a:last-child{
+												margin-bottom: 0;
+											}
+											>a:hover{
+												color: #fff;
+												background-color: #eb8611;
+											}
+										}
+	                				}
+	                				>.more:hover .handleWrap,
+	                				>.more:focus .handleWrap,
+	                				>.more:active .handleWrap,
+	                				>.more:visited .handleWrap,{
+	                					display: block;
+	                				}
+								}
+								>td:nth-child(2n+1){
+									background-color: #f5f5f5;
+								}
+							}
+							>tr:last-child{
+								border: 0;
+								>td{
+									>.more{
+										>.handleWrap{
+											top: -102px;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				>.pageTool{
+					margin-top: 50px;
+				}
+				>.tableScroll{
+					overflow-x:visible;
+				}
+			}
+		}
+	}
+}
