@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {Table,TableColumn,Input,InputNumber,Button,DatePicker,Pagination} from 'element-ui'
+import axios from 'axios'
 import App from './App.vue'
 
 import $ from 'jquery'
@@ -13,6 +14,9 @@ Vue.use(Button)
 Vue.use(DatePicker)
 Vue.use(Pagination)
 
+//axios.defaults.baseURL="http://reimbursement.ehaofangwang.com";
+//axios.defaults.header.post["Content-Type"]="application/x-www-form-urlencoded";
+Vue.prototype.$http=axios;
 
 new Vue({
     el: '#app',
