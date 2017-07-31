@@ -21,10 +21,10 @@
                         <div class="clearfix">
                             <div class="fl">
                                 <span>审批状态:</span>
-                                <el-button :plain="true" type="info" data-type="0" @click.native="change(this)">不限</el-button>
-                                <el-button :plain="true" type="info" data-type="1">完成</el-button>
-                                <el-button :plain="true" type="info" data-type="2">进行中</el-button>
-                                <el-button :plain="true" type="info" data-type="3">驳回</el-button>
+                                <el-button :plain="true" type="info" data-type="0" @click.native="change($event)">不限</el-button>
+                                <el-button :plain="true" type="info" data-type="1" @click.native="change($event)" :autofocus="true">完成</el-button>
+                                <el-button :plain="true" type="info" data-type="2" @click.native="change($event)">进行中</el-button>
+                                <el-button :plain="true" type="info" data-type="3" @click.native="change($event)">驳回</el-button>
                             </div>
                             <div class="fr">
                                 <span>提交时间:</span>
@@ -338,8 +338,9 @@
                 }
                 return str;
             },
-            change(data){
-               console.log(data)
+            change(event){
+                let type = event.currentTarget.dataset["type"];
+               console.log(type)
             }
         },
         mounted(){
@@ -383,5 +384,9 @@
     }
     }
     }
+    }
+    .activeClick{
+        border-color: #48ace6;
+        color: #48ace6;
     }
 </style>
