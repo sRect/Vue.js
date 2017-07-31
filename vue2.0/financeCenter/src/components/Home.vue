@@ -21,10 +21,10 @@
                         <div class="clearfix">
                             <div class="fl">
                                 <span>审批状态:</span>
-                                <el-button :plain="true" type="info">不限</el-button>
-                                <el-button :plain="true" type="info">完成</el-button>
-                                <el-button :plain="true" type="info">进行中</el-button>
-                                <el-button :plain="true" type="info">驳回</el-button>
+                                <el-button :plain="true" type="info" data-type="0" @click.native="change(this)">不限</el-button>
+                                <el-button :plain="true" type="info" data-type="1">完成</el-button>
+                                <el-button :plain="true" type="info" data-type="2">进行中</el-button>
+                                <el-button :plain="true" type="info" data-type="3">驳回</el-button>
                             </div>
                             <div class="fr">
                                 <span>提交时间:</span>
@@ -94,21 +94,23 @@
                                         prop="productTypeName"
                                         label="报销类型"
                                         width="150"
-                                        align="center">
+                                        align="center"
+                                        :formatter="formatterProductTypeName">
                                 </el-table-column>
                                 <el-table-column
                                         prop="remark"
                                         label="费用明细"
                                         width="150"
                                         align="center"
-                                        :show-overflow-tooltip="true">
+                                        :show-overflow-tooltip="true"
+                                        :formatter="formatterRemark">
                                 </el-table-column>
                                 <el-table-column
                                         prop="expenseTotal"
                                         label="总报销金额"
                                         width="130"
                                         align="center"
-                                        :formatter="formatterItemAlltotal">
+                                        :formatter="formatterTotal">
                                 </el-table-column>
                                 <el-table-column
                                         prop="expenseState"
@@ -122,7 +124,8 @@
                                         label="历史审批人"
                                         width="130"
                                         align="center"
-                                        :formatter="formatterUsername">
+                                        :formatter="formatterUsername"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column label="操作" width="200" fixed="right" align="center">
                                     <template scope="scope">
@@ -139,9 +142,9 @@
                                     @current-change="handleCurrentChange"
                                     :current-page="currentPage4"
                                     :page-sizes="[10, 20, 30, 40]"
-                                    :page-size="10"
+                                    :page-size="PageSize"
                                     layout="total, sizes, prev, pager, next, jumper"
-                                    :total="400">
+                                    :total="dataCount">
                             </el-pagination>
                         </div>
                     </div>
@@ -157,44 +160,39 @@
         name: 'home',
         data() {
             return {
+                dataCount: 0,
+                PageSize: 10,
                 input5: '',
                 value1: '',
                 value2: '',
-                currentPage4: 4,
+                currentPage4: 0,
                 tableData3: []
             }
         },
         methods: {
-            getTableData(){
-                let params = new URLSearchParams();
-                params.append('userID', 2);
-                params.append('pageNum', 0);
-                params.append('pageSize', "10");
-                params.append('search', "");
-                params.append('type', 0);
-                params.append('startTime', "");
-                params.append('endTime', "");
-
+            getTableData(params){
+                let self =this;
                 this.$http.post('/ddExpenses/pc_expense/financeExpenseList.do',params, {
                     headers:{
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(data => {
+                    console.log(data)
                     let myData = data.data;
                     if (JSON.stringify(myData) !== "{}") {
                     let status = myData.status;
                     switch (status) {
                         case "true":
                             let info = myData.info;
+                            self.dataCount = parseInt(info.dataCount)
                             if (JSON.stringify(info) !== "{}") {
                                 let dataArr = info.data;
                                 if (dataArr.length) {
-                                    console.log(dataArr)
                                     let arr = [];
 
                                     for (let i = 0,len = dataArr.length; i < len; i++){
                                         let expenseInfoArr = null;
-                                        expenseInfoArr = dataArr[i].expenseInfo[0];
+                                        expenseInfoArr = dataArr[i].expenseInfo;
                                         arr.push({
                                             expenseNo: dataArr[i].expenseNo,
                                             expenseUserName: dataArr[i].expenseUserName,
@@ -202,9 +200,9 @@
                                             accountName: dataArr[i].accountName,
                                             BankAccount: dataArr[i].BankAccount,
                                             accounNumber: dataArr[i].accounNumber,
-                                            itemAlltotal: expenseInfoArr.itemAlltotal,
-                                            productTypeName:expenseInfoArr.productTypeName,
-                                            remark: expenseInfoArr.remark,
+                                            itemAlltotal: expenseInfoArr,
+                                            productTypeName:expenseInfoArr,
+                                            remark: expenseInfoArr,
                                             expenseTotal:dataArr[i].expenseTotal,
                                             expenseState: dataArr[i].expenseState,
                                             userName: dataArr[i].userList
@@ -255,10 +253,27 @@
                 })
             },
             handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
+                this.PageSize = val;
+                let params = new URLSearchParams();
+                params.append('userID', 2);
+                params.append('pageNum', 0);
+                params.append('pageSize', val);
+                params.append('search', "");
+                params.append('type', 0);
+                params.append('startTime', "");
+                params.append('endTime', "");
+                this.getTableData(params);
             },
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                let params = new URLSearchParams();
+                params.append('userID', 2);
+                params.append('pageNum', val-1);
+                params.append('pageSize', "10");
+                params.append('search', "");
+                params.append('type', 0);
+                params.append('startTime', "");
+                params.append('endTime', "");
+                this.getTableData(params);
             },
             formatterExpenseState(row, column, cellValue){ //格式化审批状态
                switch(cellValue){
@@ -276,7 +291,7 @@
                        break;
                }
             },
-            formatterItemAlltotal(row, column, cellValue){ //格式化单项金额
+            formatterTotal(row, column, cellValue){ //格式化金额
                 let Num = parseInt(cellValue);
                 cellValue = cellValue + '';
                 if (cellValue.length >= 9) {
@@ -293,12 +308,50 @@
                     str += cellValue[i].userName + ' ';
                 }
                 return str;
+            },
+            formatterProductTypeName(row, column, cellValue){ //格式化报销类型
+                let str = '';
+                for(let i = 0,len = cellValue.length; i < len; i++){
+                    str += cellValue[i].productTypeName + '　';
+                }
+                return str;
+            },
+            formatterItemAlltotal(row, column, cellValue){ //格式化报销金额
+                let str = '';
+                for(let i = 0,len = cellValue.length; i < len; i++){
+                    let Num = parseInt(cellValue[i].itemAlltotal);
+                    cellValue[i].itemAlltotal = cellValue[i].itemAlltotal + '';
+                    if (cellValue[i].itemAlltotal.length >= 9) {
+                        str += (Num / 100000000) + "亿" + '　'
+                    } else if (cellValue[i].itemAlltotal.length <= 4) {
+                        str += Num + "元" + '　'
+                    } else {
+                        str += (Num / 10000) + "万" + '　'
+                    }
+                }
+                return str;
+            },
+            formatterRemark(row, column, cellValue){ //格式化费用明细
+                let str = '';
+                for(let i = 0,len = cellValue.length; i < len; i++){
+                    str += cellValue[i].remark + '　';
+                }
+                return str;
+            },
+            change(data){
+               console.log(data)
             }
         },
         mounted(){
-            this.getTableData();
-            this.formatterExpenseState();
-            this.formatterItemAlltotal();
+            let params = new URLSearchParams();
+            params.append('userID', 2);
+            params.append('pageNum', 0);
+            params.append('pageSize', "10");
+            params.append('search', "");
+            params.append('type', 0);
+            params.append('startTime', "");
+            params.append('endTime', "");
+            this.getTableData(params);
         }
     }
 </script>
