@@ -110,7 +110,8 @@
                                         prop="expenseState"
                                         label="审批状态"
                                         width="100"
-                                        align="center">
+                                        align="center"
+                                        :formatter="formatterExpenseState">
                                 </el-table-column>
                                 <el-table-column
                                         prop="userName"
@@ -197,7 +198,7 @@
                                             productTypeName: '--',
                                             remark: '--',
                                             expenseTotal:dataArr[i].expenseTotal,
-                                            expenseState: '--',
+                                            expenseState: dataArr[i].expenseState,
                                             userName: '--'
                                         })
                                     }
@@ -241,7 +242,7 @@
                 }).catch(err => {
                     this.$message({
                         showClose: true,
-                        message: err,
+                        message: "服务错误",
                         type: 'error'
                     });
                 })
@@ -251,10 +252,27 @@
             },
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
+            },
+            formatterExpenseState(row, column, cellValue){
+               switch(cellValue){
+                   case 2:
+                       return "待出款"
+                       break;
+                   case 3:
+                       return "完成"
+                       break;
+                   case 9:
+                       return "驳回"
+                       break;
+                   default:
+                       return "--"
+                       break;
+               }
             }
         },
         mounted(){
             this.getTableData();
+            this.fn();
         }
     }
 </script>

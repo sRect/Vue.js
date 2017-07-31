@@ -10,11 +10,13 @@ import './assets/js/common2.js'
 
 import filters from './filters'
 
-Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
+//Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
+
+Object.keys(filters).forEach(item => {Vue.filter(item,filters[item])})
 
 Vue.use(ElementUI)
 
-axios.defaults.baseURL="http://192.168.1.37:8080";
+axios.defaults.baseURL="http://192.168.1.62:8080";
 //axios.defaults.header.post["Content-Type"]="application/x-www-form-urlencoded";
 Vue.prototype.$http=axios;
 
