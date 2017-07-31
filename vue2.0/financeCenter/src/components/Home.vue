@@ -68,7 +68,8 @@
                                         prop="accountName"
                                         label="开户人姓名"
                                         width="110"
-                                        align="center">
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
                                         prop="BankAccount"
@@ -85,26 +86,29 @@
                                 <el-table-column
                                         prop="itemAlltotal"
                                         label="报销金额"
-                                        width="100"
-                                        align="center">
+                                        width="150"
+                                        align="center"
+                                        :formatter="formatterItemAlltotal">
                                 </el-table-column>
                                 <el-table-column
                                         prop="productTypeName"
                                         label="报销类型"
-                                        width="100"
+                                        width="150"
                                         align="center">
                                 </el-table-column>
                                 <el-table-column
                                         prop="remark"
                                         label="费用明细"
-                                        width="100"
-                                        align="center">
+                                        width="150"
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
                                         prop="expenseTotal"
                                         label="总报销金额"
                                         width="130"
-                                        align="center">
+                                        align="center"
+                                        :formatter="formatterItemAlltotal">
                                 </el-table-column>
                                 <el-table-column
                                         prop="expenseState"
@@ -117,7 +121,8 @@
                                         prop="userName"
                                         label="历史审批人"
                                         width="130"
-                                        align="center">
+                                        align="center"
+                                        :formatter="formatterUsername">
                                 </el-table-column>
                                 <el-table-column label="操作" width="200" fixed="right" align="center">
                                     <template scope="scope">
@@ -145,6 +150,7 @@
         </div>
     </div>
 </template>
+
 
 <script>
     export default {
@@ -187,6 +193,8 @@
                                     let arr = [];
 
                                     for (let i = 0,len = dataArr.length; i < len; i++){
+                                        let expenseInfoArr = null;
+                                        expenseInfoArr = dataArr[i].expenseInfo[0];
                                         arr.push({
                                             expenseNo: dataArr[i].expenseNo,
                                             expenseUserName: dataArr[i].expenseUserName,
@@ -194,15 +202,14 @@
                                             accountName: dataArr[i].accountName,
                                             BankAccount: dataArr[i].BankAccount,
                                             accounNumber: dataArr[i].accounNumber,
-                                            itemAlltotal: '--',
-                                            productTypeName: '--',
-                                            remark: '--',
+                                            itemAlltotal: expenseInfoArr.itemAlltotal,
+                                            productTypeName:expenseInfoArr.productTypeName,
+                                            remark: expenseInfoArr.remark,
                                             expenseTotal:dataArr[i].expenseTotal,
                                             expenseState: dataArr[i].expenseState,
-                                            userName: '--'
+                                            userName: dataArr[i].userList
                                         })
                                     }
-
                                     this.tableData3 = arr;
                                 } else {
                                     this.$message({
@@ -253,7 +260,7 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
             },
-            formatterExpenseState(row, column, cellValue){
+            formatterExpenseState(row, column, cellValue){ //格式化审批状态
                switch(cellValue){
                    case 2:
                        return "待出款"
@@ -268,11 +275,30 @@
                        return "--"
                        break;
                }
+            },
+            formatterItemAlltotal(row, column, cellValue){ //格式化单项金额
+                let Num = parseInt(cellValue);
+                cellValue = cellValue + '';
+                if (cellValue.length >= 9) {
+                    return (Num / 100000000) + "亿"
+                } else if (cellValue.length <= 4) {
+                    return Num + "元"
+                } else {
+                    return (Num / 10000) + "万"
+                }
+            },
+            formatterUsername(row, column, cellValue){ //格式化历史审批人
+                let str = '';
+                for(let i = 0,len = cellValue.length; i < len; i++){
+                    str += cellValue[i].userName + ' ';
+                }
+                return str;
             }
         },
         mounted(){
             this.getTableData();
-            this.fn();
+            this.formatterExpenseState();
+            this.formatterItemAlltotal();
         }
     }
 </script>
