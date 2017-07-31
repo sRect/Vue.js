@@ -21,9 +21,9 @@
                         <div class="clearfix">
                             <div class="fl">
                                 <span>审批状态:</span>
-                                <el-button :plain="true" type="info" data-type="0" @click.native="change($event)">不限</el-button>
-                                <el-button :plain="true" type="info" data-type="1" @click.native="change($event)" :autofocus="true">完成</el-button>
-                                <el-button :plain="true" type="info" data-type="2" @click.native="change($event)">进行中</el-button>
+                                <el-button :plain="true" type="info" data-type="0" @click.native="change($event)" :class="{activeClick:activeArr[0]}">不限</el-button>
+                                <el-button :plain="true" type="info" data-type="1" @click.native="change($event)">完成</el-button>
+                                <el-button :plain="true" type="info" data-type="2" @click.native="change($event)">待出款</el-button>
                                 <el-button :plain="true" type="info" data-type="3" @click.native="change($event)">驳回</el-button>
                             </div>
                             <div class="fr">
@@ -162,6 +162,7 @@
             return {
                 dataCount: 0,
                 PageSize: 10,
+                activeArr:[true,false,false,false],
                 input5: '',
                 value1: '',
                 value2: '',
@@ -340,7 +341,20 @@
             },
             change(event){
                 let type = event.currentTarget.dataset["type"];
-               console.log(type)
+
+//                switch(type){
+//
+//                }
+
+                let params = new URLSearchParams();
+                params.append('userID', 2);
+                params.append('pageNum', 0);
+                params.append('pageSize', "10");
+                params.append('search', "");
+                params.append('type', type);
+                params.append('startTime', "");
+                params.append('endTime', "");
+                this.getTableData(params);
             }
         },
         mounted(){
@@ -386,7 +400,7 @@
     }
     }
     .activeClick{
-        border-color: #48ace6;
-        color: #48ace6;
+        border-color: #48ace6 !important;
+        color: #48ace6 !important;
     }
 </style>
