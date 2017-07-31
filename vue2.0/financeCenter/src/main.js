@@ -1,20 +1,20 @@
 import Vue from 'vue'
-import {Table,TableColumn,Input,InputNumber,Button,DatePicker,Pagination} from 'element-ui'
 import axios from 'axios'
 import App from './App.vue'
+
+import ElementUI from 'element-ui'
+import '../node_modules/element-ui/lib/theme-default/index.css'
 
 import $ from 'jquery'
 import './assets/js/common2.js'
 
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(Input)
-Vue.use(InputNumber)
-Vue.use(Button)
-Vue.use(DatePicker)
-Vue.use(Pagination)
+import filters from './filters'
 
-//axios.defaults.baseURL="http://reimbursement.ehaofangwang.com";
+Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
+
+Vue.use(ElementUI)
+
+axios.defaults.baseURL="http://192.168.1.37:8080";
 //axios.defaults.header.post["Content-Type"]="application/x-www-form-urlencoded";
 Vue.prototype.$http=axios;
 
