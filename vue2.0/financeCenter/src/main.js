@@ -16,7 +16,7 @@ Object.keys(filters).forEach(item => {Vue.filter(item,filters[item])})
 
 Vue.use(ElementUI)
 
-axios.defaults.baseURL="http://192.168.1.62:8080";
+axios.defaults.baseURL="http://192.168.1.64:8080";
 //axios.defaults.header.post["Content-Type"]="application/x-www-form-urlencoded";
 Vue.prototype.$http=axios;
 

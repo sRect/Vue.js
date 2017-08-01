@@ -22,9 +22,9 @@
                             <div class="fl">
                                 <span>审批状态:</span>
                                 <el-button :plain="true" type="info" data-type="0" @click.native="change($event)" :class="{activeClick:activeArr[0]}">不限</el-button>
-                                <el-button :plain="true" type="info" data-type="1" @click.native="change($event)">完成</el-button>
-                                <el-button :plain="true" type="info" data-type="2" @click.native="change($event)">待出款</el-button>
-                                <el-button :plain="true" type="info" data-type="3" @click.native="change($event)">驳回</el-button>
+                                <el-button :plain="true" type="info" data-type="1" @click.native="change($event)" :class="{activeClick:activeArr[1]}">完成</el-button>
+                                <el-button :plain="true" type="info" data-type="2" @click.native="change($event)" :class="{activeClick:activeArr[2]}">待出款</el-button>
+                                <el-button :plain="true" type="info" data-type="3" @click.native="change($event)" :class="{activeClick:activeArr[3]}">驳回</el-button>
                             </div>
                             <div class="fr">
                                 <span>提交时间:</span>
@@ -162,7 +162,9 @@
             return {
                 dataCount: 0,
                 PageSize: 10,
+                pageNum:0,
                 activeArr:[true,false,false,false],
+                activeNum:0,
                 input5: '',
                 value1: '',
                 value2: '',
@@ -257,21 +259,22 @@
                 this.PageSize = val;
                 let params = new URLSearchParams();
                 params.append('userID', 2);
-                params.append('pageNum', 0);
+                params.append('pageNum', this.pageNum);
                 params.append('pageSize', val);
                 params.append('search', "");
-                params.append('type', 0);
+                params.append('type', this.activeNum);
                 params.append('startTime', "");
                 params.append('endTime', "");
                 this.getTableData(params);
             },
             handleCurrentChange(val) {
+//                this.pageNum = val -1;
                 let params = new URLSearchParams();
                 params.append('userID', 2);
                 params.append('pageNum', val-1);
-                params.append('pageSize', "10");
+                params.append('pageSize', this.PageSize);
                 params.append('search', "");
-                params.append('type', 0);
+                params.append('type', this.activeNum);
                 params.append('startTime', "");
                 params.append('endTime', "");
                 this.getTableData(params);
@@ -341,15 +344,32 @@
             },
             change(event){
                 let type = event.currentTarget.dataset["type"];
-
-//                switch(type){
-//
-//                }
+                console.log(type)
+                switch(type){
+                    case "0":
+                        this.activeArr = [true,false,false,false];
+                        this.activeNum = 0;
+                        break;
+                    case "1":
+                        this.activeArr = [false,true,false,false];
+                        this.activeNum = 1;
+                        break;
+                    case "2":
+                        this.activeArr = [false,false,true,false];
+                        this.activeNum = 2;
+                        break;
+                    case "3":
+                        this.activeArr = [false,false,false,true];
+                        this.activeNum = 3;
+                        break;
+                    default:
+                        break;
+                }
 
                 let params = new URLSearchParams();
                 params.append('userID', 2);
-                params.append('pageNum', 0);
-                params.append('pageSize', "10");
+                params.append('pageNum', this.pageNum);
+                params.append('pageSize', this.PageSize);
                 params.append('search', "");
                 params.append('type', type);
                 params.append('startTime', "");
@@ -360,13 +380,13 @@
         mounted(){
             let params = new URLSearchParams();
             params.append('userID', 2);
-            params.append('pageNum', 0);
-            params.append('pageSize', "10");
+            params.append('pageNum', this.pageNum);
+            params.append('pageSize', this.PageSize);
             params.append('search', "");
-            params.append('type', 0);
+            params.append('type', this.activeNum);
             params.append('startTime', "");
             params.append('endTime', "");
-            this.getTableData(params);
+            this.getTableData(params); //默认获取数据
         }
     }
 </script>
