@@ -29,14 +29,18 @@
                             <div class="fr">
                                 <span>提交时间:</span>
                                 <el-date-picker
-                                        v-model="value1"
+                                        v-model="startdate"
                                         type="date"
-                                        placeholder="开始日期">
+                                        placeholder="开始日期"
+                                        :editable="false"
+                                        @change="changestartData">
                                 </el-date-picker>
                                 <el-date-picker
-                                        v-model="value2"
+                                        v-model="enddate"
                                         type="date"
-                                        placeholder="结束日期">
+                                        placeholder="结束日期"
+                                        :editable="false"
+                                        @change="changeendData">
                                 </el-date-picker>
                             </div>
                         </div>
@@ -62,7 +66,8 @@
                                         prop="departName"
                                         label="报销部门"
                                         width="130"
-                                        align="center">
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
                                         prop="accountName"
@@ -75,27 +80,31 @@
                                         prop="BankAccount"
                                         label="开户行"
                                         width="200"
-                                        align="center">
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
                                         prop="accounNumber"
                                         label="银行账号"
                                         width="150"
-                                        align="center">
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
                                         prop="itemAlltotal"
                                         label="报销金额"
                                         width="150"
                                         align="center"
-                                        :formatter="formatterItemAlltotal">
+                                        :formatter="formatterItemAlltotal"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
                                         prop="productTypeName"
                                         label="报销类型"
                                         width="150"
                                         align="center"
-                                        :formatter="formatterProductTypeName">
+                                        :formatter="formatterProductTypeName"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
                                         prop="remark"
@@ -129,7 +138,13 @@
                                 </el-table-column>
                                 <el-table-column label="操作" width="200" fixed="right" align="center">
                                     <template scope="scope">
-                                        <el-button size="small">报表</el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="toDetail"
+                                                v-loading.fullscreen.lock="fullscreenLoading"
+                                                element-loading-text="跳转中...">
+                                                报表
+                                        </el-button>
                                         <el-button size="small" :plain="true" type="danger">驳回</el-button>
                                         <el-button size="small" :plain="true" type="success">通过</el-button>
                                     </template>
@@ -154,7 +169,6 @@
     </div>
 </template>
 
-
 <script>
     export default {
         name: 'home',
@@ -166,10 +180,11 @@
                 activeArr:[true,false,false,false],
                 activeNum:0,
                 input5: '',
-                value1: '',
-                value2: '',
+                startdate: '',
+                enddate: '',
                 currentPage4: 0,
-                tableData3: []
+                tableData3: [],
+                fullscreenLoading: false
             }
         },
         methods: {
@@ -213,6 +228,7 @@
                                     }
                                     this.tableData3 = arr;
                                 } else {
+                                    this.tableData3 = [];
                                     this.$message({
                                         showClose: true,
                                         message: '暂无信息',
@@ -263,8 +279,8 @@
                 params.append('pageSize', val);
                 params.append('search', "");
                 params.append('type', this.activeNum);
-                params.append('startTime', "");
-                params.append('endTime', "");
+                params.append('startTime', this.startdate);
+                params.append('endTime',this.enddate);
                 this.getTableData(params);
             },
             handleCurrentChange(val) {
@@ -275,8 +291,8 @@
                 params.append('pageSize', this.PageSize);
                 params.append('search', "");
                 params.append('type', this.activeNum);
-                params.append('startTime', "");
-                params.append('endTime', "");
+                params.append('startTime', this.startdate);
+                params.append('endTime', this.enddate);
                 this.getTableData(params);
             },
             formatterExpenseState(row, column, cellValue){ //格式化审批状态
@@ -372,9 +388,52 @@
                 params.append('pageSize', this.PageSize);
                 params.append('search', "");
                 params.append('type', type);
-                params.append('startTime', "");
-                params.append('endTime', "");
+                params.append('startTime', this.startdate);
+                params.append('endTime', this.enddate);
                 this.getTableData(params);
+            },
+            changestartData(e){
+                this.startdate = e;
+                this.compaireFn();
+            },
+            changeendData(e){
+                this.enddate = e;
+                this.compaireFn();
+            },
+            compaireFn(){
+                let reg = /^\d+$/;
+                if(this.startdate && this.enddate){
+                    let num = '';
+                    let startval = this.startdate.split("-").join('');
+                    let endval = this.enddate.split("-").join('');
+                        num = endval - startval;
+
+                    if(reg.test(num)){
+                        let params = new URLSearchParams();
+                        params.append('userID', 2);
+                        params.append('pageNum', 0);
+                        params.append('pageSize', this.PageSize);
+                        params.append('search', "");
+                        params.append('type', this.activeNum);
+                        params.append('startTime', this.startdate);
+                        params.append('endTime', this.enddate);
+                        this.getTableData(params);
+                    }else{
+                        this.$message({
+                            showClose: true,
+                            message: "日期选择不合法",
+                            type: 'warning'
+                        });
+                        this.startdate = "";
+                        this.enddate = "";
+                    }
+                }
+            },
+            toDetail(){
+                this.fullscreenLoading = true;
+                setTimeout(() => {
+                    this.fullscreenLoading = false;
+                }, 1000);
             }
         },
         mounted(){
@@ -384,8 +443,8 @@
             params.append('pageSize', this.PageSize);
             params.append('search', "");
             params.append('type', this.activeNum);
-            params.append('startTime', "");
-            params.append('endTime', "");
+            params.append('startTime', this.startdate);
+            params.append('endTime', this.enddate);
             this.getTableData(params); //默认获取数据
         }
     }
