@@ -147,6 +147,7 @@
                                         </el-button>
                                         <el-button size="small" :plain="true" type="danger">驳回</el-button>
                                         <el-button size="small" :plain="true" type="success">通过</el-button>
+                                        <router-link to="/audit" :class="{hide:true}">报表</router-link>
                                     </template>
                                 </el-table-column>
                             </el-table>
