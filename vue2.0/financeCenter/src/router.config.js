@@ -7,7 +7,7 @@ export default [
         component:Home
     },
     {
-        path:'/audit',
+        path:'/audit/id/:id',
         component:Audit
     },
     {

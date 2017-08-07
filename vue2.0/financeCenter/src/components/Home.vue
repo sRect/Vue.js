@@ -4,8 +4,8 @@
             <div class="inWrap">
                 <div class="inWrapTop clearfix">
                     <div class="search fl">
-                        <el-input placeholder="提交人/编号查询" title="提交人/编号查询" v-model="input5">
-                            <el-button slot="append" icon="search" title="点击搜索"></el-button>
+                        <el-input placeholder="提交人/编号查询" title="提交人/编号查询" v-model="searchInput">
+                            <el-button slot="append" icon="search" title="点击搜索" @click="search"></el-button>
                         </el-input>
                         <!--<input type="text" id="searchInput" class="searchInput fl" placeholder="提交人/编号查询" title="提交人/编号查询" />-->
                         <!--<input type="button" id="searchBtn" class="searchBtn fl" value="搜索" title="点击搜索" />-->
@@ -139,15 +139,37 @@
                                 <el-table-column label="操作" width="200" fixed="right" align="center">
                                     <template scope="scope">
                                         <el-button
+                                            size="small"
+                                            @click="toDetail"
+                                            v-loading.fullscreen.lock="fullscreenLoading"
+                                            element-loading-text="跳转中...">
+                                            报表
+                                            <!--<slot>-->
+                                                <!--<router-link to="/audit" :class="{hide:false}"></router-link>-->
+                                            <!--</slot>-->
+                                        </el-button>
+                                        <el-button
                                                 size="small"
+                                                :plain="true"
+                                                type="danger"
                                                 @click="toDetail"
                                                 v-loading.fullscreen.lock="fullscreenLoading"
                                                 element-loading-text="跳转中...">
-                                                报表
+                                            <slot>
+                                                <router-link to="/audit/id/1" :class="{hide:false,block:true}">驳回</router-link>
+                                            </slot>
                                         </el-button>
-                                        <el-button size="small" :plain="true" type="danger">驳回</el-button>
-                                        <el-button size="small" :plain="true" type="success">通过</el-button>
-                                        <router-link to="/audit" :class="{hide:true}">报表</router-link>
+                                        <el-button
+                                                size="small"
+                                                :plain="true"
+                                                type="success"
+                                                @click="toDetail"
+                                                v-loading.fullscreen.lock="fullscreenLoading"
+                                                element-loading-text="跳转中...">
+                                            <slot>
+                                                <router-link to="/audit/id/0" :class="{hide:false,block:true}">通过</router-link>
+                                            </slot>
+                                        </el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -180,7 +202,7 @@
                 pageNum:0,
                 activeArr:[true,false,false,false],
                 activeNum:0,
-                input5: '',
+                searchInput: '',
                 startdate: '',
                 enddate: '',
                 currentPage4: 0,
@@ -278,7 +300,7 @@
                 params.append('userID', 2);
                 params.append('pageNum', this.pageNum);
                 params.append('pageSize', val);
-                params.append('search', "");
+                params.append('search', this.searchInput);
                 params.append('type', this.activeNum);
                 params.append('startTime', this.startdate);
                 params.append('endTime',this.enddate);
@@ -290,7 +312,7 @@
                 params.append('userID', 2);
                 params.append('pageNum', val-1);
                 params.append('pageSize', this.PageSize);
-                params.append('search', "");
+                params.append('search', this.searchInput);
                 params.append('type', this.activeNum);
                 params.append('startTime', this.startdate);
                 params.append('endTime', this.enddate);
@@ -414,7 +436,7 @@
                         params.append('userID', 2);
                         params.append('pageNum', 0);
                         params.append('pageSize', this.PageSize);
-                        params.append('search', "");
+                        params.append('search', this.searchInput);
                         params.append('type', this.activeNum);
                         params.append('startTime', this.startdate);
                         params.append('endTime', this.enddate);
@@ -429,6 +451,19 @@
                         this.enddate = "";
                     }
                 }
+            },
+            search(){
+                let params = new URLSearchParams();
+                params.append('userID', 2);
+                params.append('pageNum', this.pageNum);
+                params.append('pageSize', this.PageSize);
+                params.append('search', this.searchInput);
+                params.append('type', this.activeNum);
+                params.append('startTime', this.startdate);
+                params.append('endTime', this.enddate);
+                this.getTableData(params);
+
+                this.searchInput = '';
             },
             toDetail(){
                 this.fullscreenLoading = true;
@@ -482,5 +517,10 @@
     .activeClick{
         border-color: #48ace6 !important;
         color: #48ace6 !important;
+    }
+    .block{
+        display: block;
+        width: 100%;
+        height: 100%;
     }
 </style>
