@@ -3,7 +3,7 @@
         <div class="wrap">
             <div class="inWrap">
                 <div class="content">
-                    <input type="text" v-model="a" value="$route.params.id" :class="{hide:false}"
+
                     <p class="title">通过</p>
                     <div class="textArea">
                         <textarea id="textArea" maxlength="500" placeholder="请输入说明"></textarea>
@@ -22,7 +22,7 @@
                         </li>
                     </ul>
                     <div class="submitWrap">
-                        <input type="button" id="submitBtn" data-reviewtype="1" :class="{submitBtn:true,refusedBtn:false}" value="提交" title="点击提交" />
+                        <input type="button" id="submitBtn" data-reviewtype="1" :class="{submitBtn:submit,refusedBtn:refused}" value="提交" title="点击提交" />
                     </div>
                 </div>
                 <div id="dialog" class="dialog">
@@ -39,12 +39,25 @@
     export default {
         data() {
             return {
-                a:''
+                submit:true,
+                refused:false,
+                a: this.$route.params.id //获取路由传参参数
             }
         },
         methods: {
-            getParams(){
-                console.log(this.a)
+            getParams(){ //底部提交按钮显示控制
+                switch(this.a){
+                    case "0":
+                        this.submit = true;
+                        this.refused = false;
+                        break;
+                    case "1":
+                        this.submit = true;
+                        this.refused = true;
+                        break;
+                    default:
+                        break;
+                }
             }
         },
         mounted(){

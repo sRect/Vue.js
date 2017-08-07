@@ -138,38 +138,35 @@
                                 </el-table-column>
                                 <el-table-column label="操作" width="200" fixed="right" align="center">
                                     <template scope="scope">
-                                        <el-button
-                                            size="small"
-                                            @click="toDetail"
-                                            v-loading.fullscreen.lock="fullscreenLoading"
-                                            element-loading-text="跳转中...">
-                                            报表
-                                            <!--<slot>-->
-                                                <!--<router-link to="/audit" :class="{hide:false}"></router-link>-->
-                                            <!--</slot>-->
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                :plain="true"
-                                                type="danger"
-                                                @click="toDetail"
-                                                v-loading.fullscreen.lock="fullscreenLoading"
-                                                element-loading-text="跳转中...">
-                                            <slot>
-                                                <router-link to="/audit/id/1" :class="{hide:false,block:true}">驳回</router-link>
-                                            </slot>
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                :plain="true"
-                                                type="success"
-                                                @click="toDetail"
-                                                v-loading.fullscreen.lock="fullscreenLoading"
-                                                element-loading-text="跳转中...">
-                                            <slot>
-                                                <router-link to="/audit/id/0" :class="{hide:false,block:true}">通过</router-link>
-                                            </slot>
-                                        </el-button>
+                                        <slot>
+                                            <router-link to="" :class="{hide:false}">
+                                                <el-button
+                                                    size="small"
+                                                    :plain="true">
+                                                    报表
+                                                </el-button>
+                                            </router-link>
+                                        </slot>
+                                        <slot>
+                                            <router-link to="/audit/id/1" :class="{hide:false}">
+                                                <el-button
+                                                    size="small"
+                                                    :plain="true"
+                                                    type="danger">
+                                                    驳回
+                                                </el-button>
+                                            </router-link>
+                                        </slot>
+                                        <slot>
+                                            <router-link to="/audit/id/0" :class="{hide:false}">
+                                                <el-button
+                                                    size="small"
+                                                    :plain="true"
+                                                    type="success">
+                                                    通过
+                                                </el-button>
+                                            </router-link>
+                                        </slot>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -464,12 +461,6 @@
                 this.getTableData(params);
 
                 this.searchInput = '';
-            },
-            toDetail(){
-                this.fullscreenLoading = true;
-                setTimeout(() => {
-                    this.fullscreenLoading = false;
-                }, 1000);
             }
         },
         mounted(){
@@ -517,10 +508,5 @@
     .activeClick{
         border-color: #48ace6 !important;
         color: #48ace6 !important;
-    }
-    .block{
-        display: block;
-        width: 100%;
-        height: 100%;
     }
 </style>
