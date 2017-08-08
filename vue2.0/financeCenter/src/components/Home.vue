@@ -51,92 +51,96 @@
                                     max-height="500"
                                     style="width: 100%;">
                                 <el-table-column
-                                        prop="expenseNo"
-                                        label="审批单号"
-                                        width="180"
-                                        align="center">
+                                    prop="expenseNo"
+                                    label="审批单号"
+                                    width="180"
+                                    align="center">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="expenseUserName"
-                                        label="发起人"
-                                        width="100"
-                                        align="center">
+                                    prop="expenseUserName"
+                                    label="发起人"
+                                    width="100"
+                                    align="center">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="departName"
-                                        label="报销部门"
-                                        width="130"
-                                        align="center"
-                                        :show-overflow-tooltip="true">
+                                    prop="departName"
+                                    label="报销部门"
+                                    width="130"
+                                    align="center"
+                                    :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="accountName"
-                                        label="开户人姓名"
-                                        width="110"
-                                        align="center"
-                                        :show-overflow-tooltip="true">
+                                    prop="accountName"
+                                    label="开户人姓名"
+                                    width="110"
+                                    align="center"
+                                    :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="BankAccount"
-                                        label="开户行"
-                                        width="200"
-                                        align="center"
-                                        :show-overflow-tooltip="true">
+                                    prop="BankAccount"
+                                    label="开户行"
+                                    width="200"
+                                    align="center"
+                                    :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="accounNumber"
-                                        label="银行账号"
-                                        width="150"
-                                        align="center"
-                                        :show-overflow-tooltip="true">
+                                    prop="accounNumber"
+                                    label="银行账号"
+                                    width="150"
+                                    align="center"
+                                    :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="itemAlltotal"
-                                        label="报销金额"
-                                        width="150"
-                                        align="center"
-                                        :formatter="formatterItemAlltotal"
-                                        :show-overflow-tooltip="true">
+                                    prop="itemAlltotal"
+                                    label="报销金额"
+                                    width="150"
+                                    align="center"
+                                    :formatter="formatterItemAlltotal"
+                                    :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="productTypeName"
-                                        label="报销类型"
-                                        width="150"
-                                        align="center"
-                                        :formatter="formatterProductTypeName"
-                                        :show-overflow-tooltip="true">
+                                    prop="productTypeName"
+                                    label="报销类型"
+                                    width="150"
+                                    align="center"
+                                    :formatter="formatterProductTypeName"
+                                    :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="remark"
-                                        label="费用明细"
-                                        width="150"
-                                        align="center"
-                                        :show-overflow-tooltip="true"
-                                        :formatter="formatterRemark">
+                                    prop="remark"
+                                    label="费用明细"
+                                    width="150"
+                                    align="center"
+                                    :show-overflow-tooltip="true"
+                                    :formatter="formatterRemark">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="expenseTotal"
-                                        label="总报销金额"
-                                        width="130"
-                                        align="center"
-                                        :formatter="formatterTotal">
+                                    prop="expenseTotal"
+                                    label="总报销金额"
+                                    width="130"
+                                    align="center"
+                                    :formatter="formatterTotal">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="expenseState"
-                                        label="审批状态"
-                                        width="100"
-                                        align="center"
-                                        :formatter="formatterExpenseState">
+                                    prop="expenseState"
+                                    label="审批状态"
+                                    width="100"
+                                    align="center"
+                                    :formatter="formatterExpenseState">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="userName"
-                                        label="历史审批人"
-                                        width="130"
-                                        align="center"
-                                        :formatter="formatterUsername"
-                                        :show-overflow-tooltip="true">
+                                    prop="userName"
+                                    label="历史审批人"
+                                    width="130"
+                                    align="center"
+                                    :formatter="formatterUsername"
+                                    :show-overflow-tooltip="true">
                                 </el-table-column>
-                                <el-table-column label="操作" width="200" fixed="right" align="center">
+                                <el-table-column
+                                    label="操作"
+                                    width="200"
+                                    fixed="right"
+                                    align="center">
                                     <template scope="scope">
                                         <slot>
                                             <router-link to="" :class="{hide:false}">
@@ -202,9 +206,12 @@
                 searchInput: '',
                 startdate: '',
                 enddate: '',
-                currentPage4: 0,
+                currentPage4: 1,
                 tableData3: [],
-                fullscreenLoading: false
+                fullscreenLoading: false,
+                expenseIDarr:[],
+                expenseReviewIDarr:[],
+//                flag:true //无奈，防重复请求标志位
             }
         },
         methods: {
@@ -216,73 +223,79 @@
                     }
                 }).then(data => {
                     console.log(data)
-                    let myData = data.data;
-                    if (JSON.stringify(myData) !== "{}") {
-                    let status = myData.status;
-                    switch (status) {
-                        case "true":
-                            let info = myData.info;
-                            self.dataCount = parseInt(info.dataCount)
-                            if (JSON.stringify(info) !== "{}") {
-                                let dataArr = info.data;
-                                if (dataArr.length) {
-                                    let arr = [];
+                        self.flag = false;
+                        let myData = data.data;
+                        if (JSON.stringify(myData) !== "{}") {
+                            let status = myData.status;
+                            switch (status) {
+                                case "true":
+                                    let info = myData.info;
+                                    self.dataCount = parseInt(info.dataCount)
+                                    if (JSON.stringify(info) !== "{}") {
+                                        let dataArr = info.data;
+                                        if (dataArr.length) {
+                                            let arr = [];
 
-                                    for (let i = 0,len = dataArr.length; i < len; i++){
-                                        let expenseInfoArr = null;
-                                        expenseInfoArr = dataArr[i].expenseInfo;
-                                        arr.push({
-                                            expenseNo: dataArr[i].expenseNo,
-                                            expenseUserName: dataArr[i].expenseUserName,
-                                            departName: dataArr[i].departName,
-                                            accountName: dataArr[i].accountName,
-                                            BankAccount: dataArr[i].BankAccount,
-                                            accounNumber: dataArr[i].accounNumber,
-                                            itemAlltotal: expenseInfoArr,
-                                            productTypeName:expenseInfoArr,
-                                            remark: expenseInfoArr,
-                                            expenseTotal:dataArr[i].expenseTotal,
-                                            expenseState: dataArr[i].expenseState,
-                                            userName: dataArr[i].userList
-                                        })
-                                    }
-                                    this.tableData3 = arr;
-                                } else {
-                                    this.tableData3 = [];
+                                            for (let i = 0,len = dataArr.length; i < len; i++){
+                                                let expenseInfoArr = null;
+                                                expenseInfoArr = dataArr[i].expenseInfo;
+                                                arr.push({
+                                                    expenseNo: dataArr[i].expenseNo,
+                                                    expenseUserName: dataArr[i].expenseUserName,
+                                                    departName: dataArr[i].departName,
+                                                    accountName: dataArr[i].accountName,
+                                                    BankAccount: dataArr[i].BankAccount,
+                                                    accounNumber: dataArr[i].accounNumber,
+                                                    itemAlltotal: expenseInfoArr,
+                                                    productTypeName:expenseInfoArr,
+                                                    remark: expenseInfoArr,
+                                                    expenseTotal:dataArr[i].expenseTotal,
+                                                    expenseState: dataArr[i].expenseState,
+                                                    userName: dataArr[i].userList,
+                                                    expenseID: dataArr[i].id,
+                                                    expenseReviewID: dataArr[i].reviewID
+                                                })
+                                                self.expenseIDarr.push(dataArr[i].id)
+                                                self.expenseReviewIDarr.push(dataArr[i].reviewID)
+                                            }
+                                            this.tableData3 = arr;
+                                        } else {
+                                            this.tableData3 = [];
+                                            this.$message({
+                                                showClose: true,
+                                                message: '暂无信息',
+                                                type: 'warning'
+                                            });
+                                            return;
+                                        };
+                                    } else {
+                                        this.$message({
+                                            showClose: true,
+                                            message: '返回数据为空',
+                                            type: 'warning'
+                                        });
+                                        return;
+                                    };
+                                    break;
+                                case "failure":
                                     this.$message({
                                         showClose: true,
-                                        message: '暂无信息',
-                                        type: 'warning'
+                                        message: '查询错误',
+                                        type: 'error'
                                     });
-                                    return;
-                                };
-                            } else {
-                                this.$message({
-                                    showClose: true,
-                                    message: '返回数据为空',
-                                    type: 'warning'
-                                });
-                                return;
-                            };
-                            break;
-                        case "failure":
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else {
                             this.$message({
                                 showClose: true,
-                                message: '查询错误',
-                                type: 'error'
+                                message: '暂无数据',
+                                type: 'warning'
                             });
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-                    this.$message({
-                            showClose: true,
-                            message: '暂无数据',
-                            type: 'warning'
-                        });
-                    return;
-                };
+                            return;
+                        };
+
                 }).catch(err => {
                     this.$message({
                         showClose: true,
