@@ -138,15 +138,17 @@
                                 </el-table-column>
                                 <el-table-column
                                     label="操作"
-                                    width="200"
+                                    width="240"
                                     fixed="right"
                                     align="center">
                                     <template scope="scope">
                                         <slot>
-                                            <router-link to="" :class="{hide:false}">
+                                            <router-link :to="{path:'statement',query:{id:456}}" :class="{hide:false}">
                                                 <el-button
                                                     size="small"
-                                                    :plain="true">
+                                                    :plain="true"
+                                                    type="info"
+                                                    icon="document">
                                                     报表
                                                 </el-button>
                                             </router-link>
@@ -156,7 +158,8 @@
                                                 <el-button
                                                     size="small"
                                                     :plain="true"
-                                                    type="danger">
+                                                    type="danger"
+                                                    icon="circle-cross">
                                                     驳回
                                                 </el-button>
                                             </router-link>
@@ -166,7 +169,8 @@
                                                 <el-button
                                                     size="small"
                                                     :plain="true"
-                                                    type="success">
+                                                    type="success"
+                                                    icon="circle-check">
                                                     通过
                                                 </el-button>
                                             </router-link>

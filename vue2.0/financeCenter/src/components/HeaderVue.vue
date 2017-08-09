@@ -35,3 +35,7 @@
 <script>
 
 </script>
+
+<style scoped lang="less">
+    @import "../assets/less/common.less";
+</style>
