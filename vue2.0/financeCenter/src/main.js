@@ -19,7 +19,8 @@ Object.keys(filters).forEach(item => {Vue.filter(item,filters[item])})
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 
-axios.defaults.baseURL="http://192.168.1.23:8080";
+//axios.defaults.baseURL="http://192.168.1.23:8080";
+axios.defaults.baseURL="http://www.ehaofangwang.com";
 Vue.prototype.$http=axios;
 
 let loadingInstance = null;

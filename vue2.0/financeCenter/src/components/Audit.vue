@@ -6,23 +6,39 @@
 
                     <p class="title">通过</p>
                     <div class="textArea">
-                        <textarea id="textArea" maxlength="500" placeholder="请输入说明"></textarea>
+                        <textarea id="textArea" v-model="textarea" maxlength="500" placeholder="请输入说明"></textarea>
                         <span class="tip">500</span>
                     </div>
                     <ul id="uploadWrap" class="imgUpload clearfix">
+                        <el-upload
+                                action="http://www.ehaofangwang.com/publicshow/qiniuUtil/fileToQiniu"
+                                :headers="header"
+                                :multiple="true"
+                                :auto-upload="false"
+                                list-type="picture-card"
+                                accept="image/png,image/jpeg,image/jpg"
+                                :on-change="imgChange"
+                                :before-upload="beforeAvatarUpload"
+                                :on-preview="handlePictureCardPreview"
+                                :on-remove="handleRemove">
+                            <i class="el-icon-plus"></i>
+                        </el-upload>
+                        <el-dialog v-model="dialogVisible" size="tiny">
+                            <img width="100%" :src="dialogImageUrl" alt="">
+                        </el-dialog>
                         <!-- <li><img src="../image/秋天.jpg" alt="" /></li> -->
-                        <li id="addBtn" class="addBtn" title="点击添加图片">
-                            <!-- <form enctype="multipart/form-data" id="form1" class="myForm"> -->
-                            <input type="file" id="myFile" class="myFile" name="files" accept="image/png,image/jpeg,image/jpg" multiple/>
-                            <!-- </form> -->
-                            <p class="tipDes">
-                                <span>点击添加图片</span>
-                                <span>(最高上限5张)</span>
-                            </p>
-                        </li>
+                        <!--<li id="addBtn" class="addBtn" title="点击添加图片">-->
+                            <!--&lt;!&ndash; <form enctype="multipart/form-data" id="form1" class="myForm"> &ndash;&gt;-->
+                            <!--<input type="file" id="myFile" class="myFile" name="files" accept="image/png,image/jpeg,image/jpg" multiple/>-->
+                            <!--&lt;!&ndash; </form> &ndash;&gt;-->
+                            <!--<p class="tipDes">-->
+                                <!--<span>点击添加图片</span>-->
+                                <!--<span>(最高上限5张)</span>-->
+                            <!--</p>-->
+                        <!--</li>-->
                     </ul>
                     <div class="submitWrap">
-                        <input type="button" id="submitBtn" data-reviewtype="1" :class="{submitBtn:submit,refusedBtn:refused}" value="提交" title="点击提交" />
+                        <input type="button" @click="submitFn" id="submitBtn" data-reviewtype="1" :class="{submitBtn:submit,refusedBtn:refused}" value="提交" title="点击提交" />
                     </div>
                 </div>
                 <div id="dialog" class="dialog">
@@ -41,7 +57,13 @@
             return {
                 submit:true,
                 refused:false,
-                a: this.$route.params.id //获取路由传参参数
+                textarea:'',
+                a: this.$route.params.id, //获取路由传参参数
+                dialogImageUrl: '',
+                dialogVisible: false,
+                header:{
+                    "Access-Control-Allow-Origin": "*"
+                }
             }
         },
         methods: {
@@ -57,6 +79,53 @@
                         break;
                     default:
                         break;
+                }
+            },
+            imgChange(file, fileList){
+//                let len = fileList.length;
+//                if(len > 5){
+//                    this.$message({
+//                        showClose: true,
+//                        message: "单次图片最多上传5张",
+//                        type: 'error'
+//                    });
+//                    return false;
+//                }
+            },
+            beforeAvatarUpload(file) {
+                console.log(file)
+//                const isJPG = file.type === 'image/jpeg';
+                const isLt5M = file.size / 1024 / 1024 < 5;
+
+                let type = file.type;
+                if(type !== "image/jpg" && type !== "image/jpeg" && type !== "image/png"){
+                    this.$message({
+                        showClose: true,
+                        message: "请选择扩展名.jpg/.jpeg/.png图片",
+                        type: 'error'
+                    });
+                }
+
+                if (!isLt5M) {
+                    this.$message.error('上传头像图片大小不能超过 5MB!');
+                }
+                return type && isLt5M;
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+            submitFn(){
+                if(this.textarea == ""){
+                    this.$message({
+                        showClose: true,
+                        message: "请完善审核说明",
+                        type: 'error'
+                    });
+                    return;
                 }
             }
         },
