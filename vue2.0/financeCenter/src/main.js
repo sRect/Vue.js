@@ -19,6 +19,8 @@ Object.keys(filters).forEach(item => {Vue.filter(item,filters[item])})
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 
+axios.defaults.timeout = 5000; //响应时间
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头
 //axios.defaults.baseURL="http://192.168.1.23:8080";
 axios.defaults.baseURL="http://www.ehaofangwang.com";
 Vue.prototype.$http=axios;
@@ -30,6 +32,7 @@ axios.interceptors.request.use(function (config) {  //配置发送请求的信�
     });
     return config;
 }, function (error) {
+    loadingInstance.close()
     return Promise.reject(error);
 });
 
@@ -37,6 +40,7 @@ axios.interceptors.response.use(function (response) { //配置请求回来的信
     loadingInstance.close()
     return response;
 }, function (error) {
+    loadingInstance.close()
     return Promise.reject(error);
 });
 
