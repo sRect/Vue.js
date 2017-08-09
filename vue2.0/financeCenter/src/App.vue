@@ -25,7 +25,6 @@
 </script>
 
 <style lang="less">
-    @import "./assets/less/common.less";
     @import "./assets/less/public.less";
     .hide{
         display: none;
