@@ -152,7 +152,7 @@
                                             </router-link>
                                         </slot>
                                         <slot>
-                                            <router-link :to="{path:'audit',query:{id:1,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class='{hide:false}'>
+                                            <router-link :to="{path:'audit',query:{id:2,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class='{hide:false}'>
                                                 <el-button
                                                     size="small"
                                                     :plain="true"
@@ -162,12 +162,11 @@
                                             </router-link>
                                         </slot>
                                         <slot>
-                                            <router-link :to="{path:'audit',query:{id:0,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class="{hide:false}">
+                                            <router-link :to="{path:'audit',query:{id:1,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class="{hide:false}">
                                                 <el-button
                                                     size="small"
                                                     :plain="true"
-                                                    type="success"
-                                                    @click="apecial(scope.row)">
+                                                    type="success">
                                                     通过
                                                 </el-button>
                                             </router-link>
@@ -218,13 +217,8 @@
         methods: {
             getTableData(params){
                 let self =this;
-                this.$http.post('/ddExpenses/pc_expense/financeExpenseList.do',params, {
-                    headers:{
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }).then(data => {
+                this.$http.post('/ddExpenses/pc_expense/financeExpenseList.do',params).then(data => {
                     console.log(data)
-                        self.flag = false;
                         let myData = data.data;
                         if (JSON.stringify(myData) !== "{}") {
                             let status = myData.status;
@@ -475,9 +469,6 @@
                 this.getTableData(params);
 
                 this.searchInput = '';
-            },
-            apecial(data){
-                console.log(data)
             }
         },
         mounted(){

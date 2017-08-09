@@ -12,7 +12,7 @@
                     <ul id="uploadWrap" class="imgUpload clearfix">
                         <el-upload
                                 action="http://www.ehaofangwang.com/publicshow/qiniuUtil/fileToQiniu"
-                                :headers="header"
+
                                 :multiple="true"
                                 :auto-upload="false"
                                 list-type="picture-card"
@@ -51,29 +51,27 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
     export default {
+        name:"audit",
         data() {
             return {
                 submit:true,
                 refused:false,
                 textarea:'',
-                a: this.$route.params.id, //获取路由传参参数
+                a: this.$route.query.id, //获取路由传参参数
                 dialogImageUrl: '',
-                dialogVisible: false,
-                header:{
-                    "Access-Control-Allow-Origin": "*"
-                }
+                dialogVisible: false
             }
         },
         methods: {
             getParams(){ //底部提交按钮显示控制
                 switch(this.a){
-                    case "0":
+                    case 1:
                         this.submit = true;
                         this.refused = false;
                         break;
-                    case "1":
+                    case 2:
                         this.submit = true;
                         this.refused = true;
                         break;
@@ -127,6 +125,62 @@
                     });
                     return;
                 }
+
+                let params = new URLSearchParams();
+                params.append('expenseID', this.$route.query.expenseID);
+                params.append('expenseReviewID', this.$route.query.expenseReviewID);
+                params.append('reviewType', this.a);
+                params.append('expenselog', this.textarea);
+                params.append('expenseImageName', '');
+                params.append('expenseImageUrl', '');
+
+                this.$http.post('http://192.168.1.13:8080/ddExpenses/review/updataExpenseReview.do',params,{
+                    headers:{
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(data => {
+                    let myData = data.data;
+                    if (JSON.stringify(myData) !== "{}") {
+                        let status = myData.status;
+                        switch (status) {
+                            case 1:
+                                this.$message({
+                                    showClose: true,
+                                    message: '审核成功',
+                                    type: 'success'
+                                });
+//                                setTimeout(function(){
+//                                    this.$router.push({path:'/home'})
+//                                }.bind(this),1000)
+                                setTimeout(() => {
+                                    this.$router.push({path:'/home'});
+                                },1000)
+                                break;
+                            case 0:
+                                this.$message({
+                                    showClose: true,
+                                    message: '审核失败',
+                                    type: 'warning'
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    }else{
+                        this.$message({
+                            showClose: true,
+                            message: '暂无数据',
+                            type: 'warning'
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    this.$message({
+                        showClose: true,
+                        message: '服务错误',
+                         type: 'error'
+                    });
+                })
             }
         },
         mounted(){
