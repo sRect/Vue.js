@@ -264,6 +264,7 @@
                                             return;
                                         };
                                     } else {
+                                        this.tableData3 = [];
                                         this.$message({
                                             showClose: true,
                                             message: '返回数据为空',
@@ -283,6 +284,7 @@
                                     break;
                             }
                         } else {
+                            this.tableData3 = [];
                             this.$message({
                                 showClose: true,
                                 message: '暂无数据',
@@ -292,6 +294,7 @@
                         };
 
                 }).catch(err => {
+                    this.tableData3 = [];
                     this.$message({
                         showClose: true,
                         message: "服务错误",
