@@ -152,7 +152,7 @@
                                             </router-link>
                                         </slot>
                                         <slot>
-                                            <router-link to="/audit/id/1" :class="{hide:false}">
+                                            <router-link :to="{path:'audit',query:{id:1,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class='{hide:false}'>
                                                 <el-button
                                                     size="small"
                                                     :plain="true"
@@ -162,11 +162,12 @@
                                             </router-link>
                                         </slot>
                                         <slot>
-                                            <router-link to="/audit/id/0" :class="{hide:false}">
+                                            <router-link :to="{path:'audit',query:{id:0,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class="{hide:false}">
                                                 <el-button
                                                     size="small"
                                                     :plain="true"
-                                                    type="success">
+                                                    type="success"
+                                                    @click="apecial(scope.row)">
                                                     通过
                                                 </el-button>
                                             </router-link>
@@ -474,6 +475,9 @@
                 this.getTableData(params);
 
                 this.searchInput = '';
+            },
+            apecial(data){
+                console.log(data)
             }
         },
         mounted(){
