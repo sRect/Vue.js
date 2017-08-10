@@ -11,7 +11,7 @@
                         <!--<input type="button" id="searchBtn" class="searchBtn fl" value="搜索" title="点击搜索" />-->
                     </div>
                     <div class="toExcel fr">
-                        <el-button type="warning" title="导出Excel">导出Excel</el-button>
+                        <el-button type="warning" title="导出Excel" @click.stop.prevent="toExcel">导出Excel</el-button>
                         <!--<input type="button" id="toExcelBtn" class="toExcelBtn" value="导出Excel" title="导出Excel" />-->
                         <!-- <a href="" id="toExcelBtn" class="toExcelBtn" title="导出Excel">导出Excel</a> -->
                     </div>
@@ -198,7 +198,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
     export default {
         name: 'home',
         data() {
@@ -215,8 +215,7 @@
                 tableData3: [],
                 fullscreenLoading: false,
                 expenseIDarr:[],
-                expenseReviewIDarr:[],
-//                flag:true //无奈，防重复请求标志位
+                expenseReviewIDarr:[]
             }
         },
         methods: {
@@ -476,12 +475,51 @@
                 params.append('endTime', this.enddate);
                 this.getTableData(params);
 
-                this.searchInput = '';
+//                this.searchInput = '';
             },
             dbclick(row, event){
                 event.preventDefault();
                 event.stopPropagation();
                 this.$router.push({path:'/statement'}); //路由跳转
+            },
+            toExcel(){
+                const self = this;
+                let form = document.createElement("form");
+                let input = document.createElement("input");
+                $(input).attr('type', 'hidden');
+                form.style.display = "none";
+                form.setAttribute("method", "post");
+                // 测试
+                // form.setAttribute("action", "www.ehaofangwang.com/ddExpenses/pc_expense/exportExpense.do?userID="+2+'&search='+val+'&type='+typeid+'&startTime='+startTime+'&endTime='+endTime);
+                // 本地
+                form.setAttribute("action", "http://192.168.1.30:8080/ddExpenses/pc_expense/exportExpense.do?userID=2&search=" + self.searchInput + '&type=' +  self.activeNum + '&startTime=' + self.startdate + '&endTime=' + self.enddate);
+
+                document.body.appendChild(form);
+                form.appendChild(input);
+                form.submit();
+                form.parentNode.removeChild(form);
+//                this.$http({
+//                    url: '/ddExpenses/pc_expense/exportExpense.do',
+//                    method: 'post',
+//                    data: {
+//                        userID: 2,
+//                        search: this.searchInput,
+//                        type:this.activeNum,
+//                        startTime:this.startdate,
+//                        endTime:this.enddate
+//                    },
+//                    transformRequest: [function (data) {
+//                        // Do whatever you want to transform the data
+//                        let ret = ''
+//                        for (let it in data) {
+//                            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+//                        }
+//                        return ret
+//                    }],
+//                    headers: {
+//                        'Content-Type': 'application/x-www-form-urlencoded'
+//                    }
+//                })
             }
         },
         mounted(){
