@@ -223,79 +223,79 @@
                 let self =this;
                 this.$http.post('/ddExpenses/pc_expense/financeExpenseList.do',params).then(data => {
                     console.log(data)
-                        let myData = data.data;
-                        if (JSON.stringify(myData) !== "{}") {
-                            let status = myData.status;
-                            switch (status) {
-                                case "true":
-                                    let info = myData.info;
-                                    self.dataCount = parseInt(info.dataCount)
-                                    if (JSON.stringify(info) !== "{}") {
-                                        let dataArr = info.data;
-                                        if (dataArr.length) {
-                                            let arr = [];
+                    let myData = data.data;
+                    if (JSON.stringify(myData) !== "{}") {
+                        let status = myData.status;
+                        switch (status) {
+                            case "true":
+                                let info = myData.info;
+                                self.dataCount = parseInt(info.dataCount)
+                                if (JSON.stringify(info) !== "{}") {
+                                    let dataArr = info.data;
+                                    if (dataArr.length) {
+                                        let arr = [];
 
-                                            for (let i = 0,len = dataArr.length; i < len; i++){
-                                                let expenseInfoArr = null;
-                                                expenseInfoArr = dataArr[i].expenseInfo;
-                                                arr.push({
-                                                    expenseNo: dataArr[i].expenseNo,
-                                                    expenseUserName: dataArr[i].expenseUserName,
-                                                    departName: dataArr[i].departName,
-                                                    accountName: dataArr[i].accountName,
-                                                    BankAccount: dataArr[i].BankAccount,
-                                                    accounNumber: dataArr[i].accounNumber,
-                                                    itemAlltotal: expenseInfoArr,
-                                                    productTypeName:expenseInfoArr,
-                                                    remark: expenseInfoArr,
-                                                    expenseTotal:dataArr[i].expenseTotal,
-                                                    expenseState: dataArr[i].expenseState,
-                                                    userName: dataArr[i].userList,
-                                                    expenseID: dataArr[i].id,
-                                                    expenseReviewID: dataArr[i].reviewID
-                                                })
-                                                self.expenseIDarr.push(dataArr[i].id)
-                                                self.expenseReviewIDarr.push(dataArr[i].reviewID)
-                                            }
-                                            this.tableData3 = arr;
-                                        } else {
-                                            this.tableData3 = [];
-                                            this.$message({
-                                                showClose: true,
-                                                message: '暂无信息',
-                                                type: 'warning'
-                                            });
-                                            return;
-                                        };
+                                        for (let i = 0,len = dataArr.length; i < len; i++){
+                                            let expenseInfoArr = null;
+                                            expenseInfoArr = dataArr[i].expenseInfo;
+                                            arr.push({
+                                                expenseNo: dataArr[i].expenseNo,
+                                                expenseUserName: dataArr[i].expenseUserName,
+                                                departName: dataArr[i].departName,
+                                                accountName: dataArr[i].accountName,
+                                                BankAccount: dataArr[i].BankAccount,
+                                                accounNumber: dataArr[i].accounNumber,
+                                                itemAlltotal: expenseInfoArr,
+                                                productTypeName:expenseInfoArr,
+                                                remark: expenseInfoArr,
+                                                expenseTotal:dataArr[i].expenseTotal,
+                                                expenseState: dataArr[i].expenseState,
+                                                userName: dataArr[i].userList,
+                                                expenseID: dataArr[i].id,
+                                                expenseReviewID: dataArr[i].reviewID
+                                            })
+                                            self.expenseIDarr.push(dataArr[i].id)
+                                            self.expenseReviewIDarr.push(dataArr[i].reviewID)
+                                        }
+                                        this.tableData3 = arr;
                                     } else {
                                         this.tableData3 = [];
                                         this.$message({
                                             showClose: true,
-                                            message: '返回数据为空',
+                                            message: '暂无信息',
                                             type: 'warning'
                                         });
                                         return;
                                     };
-                                    break;
-                                case "failure":
+                                } else {
+                                    this.tableData3 = [];
                                     this.$message({
                                         showClose: true,
-                                        message: '查询错误',
-                                        type: 'error'
+                                        message: '返回数据为空',
+                                        type: 'warning'
                                     });
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } else {
-                            this.tableData3 = [];
-                            this.$message({
-                                showClose: true,
-                                message: '暂无数据',
-                                type: 'warning'
-                            });
-                            return;
-                        };
+                                    return;
+                                };
+                                break;
+                            case "failure":
+                                this.$message({
+                                    showClose: true,
+                                    message: '查询错误',
+                                    type: 'error'
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        this.tableData3 = [];
+                        this.$message({
+                            showClose: true,
+                            message: '暂无数据',
+                            type: 'warning'
+                        });
+                        return;
+                    };
 
                 }).catch(err => {
                     this.tableData3 = [];
@@ -498,28 +498,6 @@
                 form.appendChild(input);
                 form.submit();
                 form.parentNode.removeChild(form);
-//                this.$http({
-//                    url: '/ddExpenses/pc_expense/exportExpense.do',
-//                    method: 'post',
-//                    data: {
-//                        userID: 2,
-//                        search: this.searchInput,
-//                        type:this.activeNum,
-//                        startTime:this.startdate,
-//                        endTime:this.enddate
-//                    },
-//                    transformRequest: [function (data) {
-//                        // Do whatever you want to transform the data
-//                        let ret = ''
-//                        for (let it in data) {
-//                            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-//                        }
-//                        return ret
-//                    }],
-//                    headers: {
-//                        'Content-Type': 'application/x-www-form-urlencoded'
-//                    }
-//                })
             }
         },
         mounted(){

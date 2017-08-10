@@ -54,27 +54,27 @@
                                 </tr>
                                 <tr>
                                     <td>部门</td>
-                                    <td id="departName" class="center" colspan="2"></td>
+                                    <td v-text="departName" id="departName" class="center" colspan="2"></td>
                                     <td>收款人工号</td>
-                                    <td id="loginName" class="center" colspan="3"></td>
+                                    <td v-text="loginName" id="loginName" class="center" colspan="3"></td>
                                 </tr>
                                 <tr>
                                     <td>项目</td>
-                                    <td id="projectName" class="center" colspan="2"></td>
+                                    <td v-text="projectName" id="projectName" class="center" colspan="2"></td>
                                     <td>收款人</td>
-                                    <td id="accountName" class="center" colspan="3"></td>
+                                    <td v-text="accountName" id="accountName" class="center" colspan="3"></td>
                                 </tr>
                                 <tr>
                                     <td>申请人</td>
-                                    <td id="expenseUserName" class="center" colspan="2"></td>
+                                    <td v-text="expenseUserName" id="expenseUserName" class="center" colspan="2"></td>
                                     <td>开户行</td>
-                                    <td id="BankAccount" class="center" colspan="3"></td>
+                                    <td v-text="bankAccount" id="BankAccount" class="center" colspan="3"></td>
                                 </tr>
                                 <tr>
                                     <td>申请日期</td>
-                                    <td id="creatTime" class="center" colspan="2"></td>
+                                    <td v-text="creatTime" id="creatTime" class="center" colspan="2"></td>
                                     <td>收款账户</td>
-                                    <td id="accounNumber" class="center" colspan="3"></td>
+                                    <td v-text="accounNumber" id="accounNumber" class="center" colspan="3"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="3"></td>
@@ -103,43 +103,43 @@
                                     <td colspan="5"></td>
                                 </tr>
 
-                                 <tr>
-                                    <td>交通费</td>
-                                    <td>过路费</td>
-                                    <td class="right">1200</td>
-                                    <td class="center" colspan="4">运动</td>
-                                </tr>
-                                <tr>
-                                    <td>交通费</td>
-                                    <td>过路费</td>
-                                    <td class="right">1200</td>
-                                    <td class="center" colspan="4">运动</td>
-                                </tr>
+                                 <!--<tr>-->
+                                    <!--<td>交通费</td>-->
+                                    <!--<td>过路费</td>-->
+                                    <!--<td class="right">1200</td>-->
+                                    <!--<td class="center" colspan="4">运动</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>交通费</td>-->
+                                    <!--<td>过路费</td>-->
+                                    <!--<td class="right">1200</td>-->
+                                    <!--<td class="center" colspan="4">运动</td>-->
+                                <!--</tr>-->
 
                                 <tr>
                                     <td>合计</td>
-                                    <td id="expenseTotal" class="center" colspan="2">1600</td>
+                                    <td v-text="expenseTotal" id="expenseTotal" class="center" colspan="2"></td>
                                     <td>金额(大写)</td>
-                                    <td id="expenseTotalBig" class="center" colspan="3"></td>
+                                    <td v-text="expenseTotalBig" id="expenseTotalBig" class="center" colspan="3"></td>
                                 </tr>
-                                <tr>
-                                    <td id="usenameInsert">审核过程</td>
-                                     <td class="center">张三</td>
-                                    <td class="center">李四</td>
-                                    <td class="center">王五</td>
-                                    <td class="center">张三</td>
-                                    <td class="center">李四</td>
-                                    <td class="center">王五</td>
-                                </tr>
-                                <tr>
-                                    <td id="updateTimeInsert">日期</td>
-                                     <td class="center">2017/10/01</td>
-                                    <td class="center">2017/10/01</td>
-                                    <td class="center">2017/10/01</td>
-                                    <td class="center">2017/10/01</td>
-                                    <td class="center">2017/10/01</td>
-                                    <td class="center">2017/10/01</td>
-                                </tr>
+                                <!--<tr>-->
+                                    <!--<td id="usenameInsert">审核过程</td>-->
+                                     <!--<td class="center">张三</td>-->
+                                    <!--<td class="center">李四</td>-->
+                                    <!--<td class="center">王五</td>-->
+                                    <!--<td class="center">张三</td>-->
+                                    <!--<td class="center">李四</td>-->
+                                    <!--<td class="center">王五</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td id="updateTimeInsert">日期</td>-->
+                                     <!--<td class="center">2017/10/01</td>-->
+                                    <!--<td class="center">2017/10/01</td>-->
+                                    <!--<td class="center">2017/10/01</td>-->
+                                    <!--<td class="center">2017/10/01</td>-->
+                                    <!--<td class="center">2017/10/01</td>-->
+                                    <!--<td class="center">2017/10/01</td>-->
+                                <!--</tr>-->
                                 </tbody>
                             </table>
                         </div>
@@ -151,13 +151,106 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
     export default {
         name:'statement',
         data() {
-            return {}
+            return {
+                id:'',
+                bankAccount:'',
+                loginName:'',
+                projectName:'' || '--',
+                accountName:'',
+                expenseUserName:'',
+                creatTime:'',
+                accounNumber:'',
+                expenseTotal:'',
+                expenseTotalBig:'',
+                departName:'',
+                userList:null, //历史审批人集合
+                expenseInfo:null //报销集合
+            }
         },
-        methods: {}
+        methods: {
+            getParams(){
+                this.id = this.$route.query.expenseID;
+            },
+            getData(){
+                const self = this;
+                let params = new URLSearchParams();
+                params.append('id', parseInt(this.id));
+
+                this.$http({
+                    url: '/ddExpenses/pc_expense/expenseDetails.do',
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    params,
+                }).then(data => {
+                    console.log(data)
+                    let myData = data.data;
+                    if (JSON.stringify(myData) !== "{}") {
+                        let status = myData.status;
+                        switch (status) {
+                            case "true":
+                                let info = myData.info;
+                                if (JSON.stringify(info) !== "{}") {
+                                    let dataArr = info.data;
+                                    console.log(dataArr);
+
+                                    self.bankAccount = dataArr.BankAccount;
+                                    self.loginName = dataArr.loginName;
+                                    self.accountName = dataArr.accountName;
+                                    self.expenseUserName = dataArr.expenseUserName;
+                                    self.departName = dataArr.departName;
+                                    self.creatTime = dataArr.creatTime;
+                                    self.accounNumber = dataArr.accounNumber;
+                                    self.expenseTotal = dataArr.expenseTotal;
+                                    self.expenseTotalBig = dataArr.expenseTotalBig;
+                                } else {
+                                    this.$message({
+                                        showClose: true,
+                                        message: '返回数据为空',
+                                        type: 'warning'
+                                    });
+                                    return;
+                                };
+                                break;
+                            case "failure":
+                                this.$message({
+                                    showClose: true,
+                                    message: '查询错误',
+                                    type: 'error'
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        this.$message({
+                            showClose: true,
+                            message: '暂无数据',
+                            type: 'warning'
+                        });
+                        return;
+                    };
+                }).catch(err => {
+                    console.log(err)
+                    this.$message({
+                        showClose: true,
+                        message: "服务错误",
+                        type: 'error'
+                    });
+                })
+            }
+        },
+        beforeMount(){
+            this.getParams();
+        },
+        mounted(){
+            this.getData();
+        }
     }
 </script>
 
