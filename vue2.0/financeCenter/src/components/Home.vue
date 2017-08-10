@@ -49,7 +49,8 @@
                                     :data="tableData3"
                                     border
                                     max-height="500"
-                                    style="width: 100%;">
+                                    style="width: 100%;"
+                                    @row-dblclick="dbclick">
                                 <el-table-column
                                     prop="expenseNo"
                                     label="审批单号"
@@ -476,6 +477,11 @@
                 this.getTableData(params);
 
                 this.searchInput = '';
+            },
+            dbclick(row, event){
+                event.preventDefault();
+                event.stopPropagation();
+                this.$router.push({path:'/statement'}); //路由跳转
             }
         },
         mounted(){
