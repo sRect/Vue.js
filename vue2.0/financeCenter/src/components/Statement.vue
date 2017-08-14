@@ -103,18 +103,12 @@
                                     <td colspan="5"></td>
                                 </tr>
 
-                                 <!--<tr>-->
-                                    <!--<td>交通费</td>-->
-                                    <!--<td>过路费</td>-->
-                                    <!--<td class="right">1200</td>-->
-                                    <!--<td class="center" colspan="4">运动</td>-->
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<td>交通费</td>-->
-                                    <!--<td>过路费</td>-->
-                                    <!--<td class="right">1200</td>-->
-                                    <!--<td class="center" colspan="4">运动</td>-->
-                                <!--</tr>-->
+                                <tr v-for="(val,index) in expenseInfo" :key="index">
+                                    <td v-text="val.productTypeParent"></td>
+                                    <td v-text="val.productTypeName"></td>
+                                    <td v-text="val.itemAlltotal" class="right"></td>
+                                    <td v-text="val.remark" class="center" colspan="4"></td>
+                                </tr>
 
                                 <tr>
                                     <td>合计</td>
@@ -122,24 +116,16 @@
                                     <td>金额(大写)</td>
                                     <td v-text="expenseTotalBig" id="expenseTotalBig" class="center" colspan="3"></td>
                                 </tr>
-                                <!--<tr>-->
-                                    <!--<td id="usenameInsert">审核过程</td>-->
-                                     <!--<td class="center">张三</td>-->
-                                    <!--<td class="center">李四</td>-->
-                                    <!--<td class="center">王五</td>-->
-                                    <!--<td class="center">张三</td>-->
-                                    <!--<td class="center">李四</td>-->
-                                    <!--<td class="center">王五</td>-->
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<td id="updateTimeInsert">日期</td>-->
-                                     <!--<td class="center">2017/10/01</td>-->
-                                    <!--<td class="center">2017/10/01</td>-->
-                                    <!--<td class="center">2017/10/01</td>-->
-                                    <!--<td class="center">2017/10/01</td>-->
-                                    <!--<td class="center">2017/10/01</td>-->
-                                    <!--<td class="center">2017/10/01</td>-->
-                                <!--</tr>-->
+                                <tr id="userList">
+                                    <td class="center" colspan="7">审核过程</td>
+                                </tr>
+                                <tr v-for="(val,index) in userList" :key="index">
+                                    <td>
+                                        <p>{{val.userName}}</p>
+                                        <p>{{val.updateTime}}</p>
+                                    </td>
+                                    <td colspan="6">{{val.remark}}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -208,6 +194,8 @@
                                     self.accounNumber = dataArr.accounNumber;
                                     self.expenseTotal = dataArr.expenseTotal;
                                     self.expenseTotalBig = dataArr.expenseTotalBig;
+                                    self.expenseInfo = dataArr.expenseInfo;
+                                    self.userList = dataArr.userList;
                                 } else {
                                     this.$message({
                                         showClose: true,
