@@ -134,7 +134,7 @@
                 params.append('expenseImageName', '');
                 params.append('expenseImageUrl', '');
 
-                this.$http.post('http://192.168.1.13:8080/ddExpenses/review/updataExpenseReview.do',params,{
+                this.$http.post('/ddExpenses/review/updataExpenseReview.do',params,{
                     headers:{
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
