@@ -313,6 +313,9 @@
                  position: relative;
                  top: 2px;
              }
+             >p{
+                margin:5px 0;
+              }
             }
             }
             }
