@@ -58,6 +58,13 @@
                                     align="center">
                                 </el-table-column>
                                 <el-table-column
+                                    prop="creatTime"
+                                    label="发起时间"
+                                    width="160"
+                                    align="center"
+                                    :formatter="formatterCreatTime">
+                                </el-table-column>
+                                <el-table-column
                                     prop="expenseUserName"
                                     label="发起人"
                                     width="100"
@@ -252,7 +259,8 @@
                                                 expenseState: dataArr[i].expenseState,
                                                 userName: dataArr[i].userList,
                                                 expenseID: dataArr[i].id,
-                                                expenseReviewID: dataArr[i].reviewID
+                                                expenseReviewID: dataArr[i].reviewID,
+                                                creatTime: dataArr[i].creatTime
                                             })
                                             self.expenseIDarr.push(dataArr[i].id)
                                             self.expenseReviewIDarr.push(dataArr[i].reviewID)
@@ -392,6 +400,20 @@
                     str += cellValue[i].remark + '　';
                 }
                 return str;
+            },
+            formatterCreatTime(row, column, cellValue){
+                if(cellValue){
+                    let oDate = new Date(cellValue);
+                    let hour = oDate.getHours().toString();
+                    let ohour = hour.length == '2' ? hour : '0' + hour;
+                    let minutes = oDate.getMinutes().toString();
+                    let ominutes = minutes.length == '2' ? minutes : '0' + minutes;
+                    let month = parseInt(oDate.getMonth()) + 1;
+
+                    return oDate.getFullYear() + "/" + month + "/" + oDate.getDate() + "　" + ohour + ":" + ominutes
+                }else{
+                    return '--';
+                }
             },
             change(event){
                 let type = event.currentTarget.dataset["type"];
