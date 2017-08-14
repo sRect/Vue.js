@@ -7,46 +7,18 @@
                         <span>轩天实业 > 财务中心 > 报销</span>
                     </div>
                     <div class="btnWrap fr clearfix">
-                        <input id="printBtn" type="button" class="printBtn" value="打印" title="打印表格" />
+                        <input id="printBtn" type="button" class="printBtn" value="打印" title="打印表格"/>
                         <!-- <input type="button" class="downloadBtn" value="下载" title="下载表格" /> -->
-                        <a id="downloadBtn" class="downloadBtn fr" download="付款申请单.xls" href="#" onclick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');" title="下载表格">下载</a>
+                        <a id="downloadBtn" class="downloadBtn fr" download="付款申请单.xls" href="#"
+                           onclick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');"
+                           title="下载表格">下载</a>
                     </div>
                 </div>
                 <!-- 主体结构开始 -->
                 <div class="inWrapBottom">
                     <div class="bgWrap">
                         <div id="printContent" class="tableWrap">
-                            <!--<style>-->
-                                <!--.center {-->
-                                    <!--text-align: center;-->
-                                <!--}-->
-                                <!--.right {-->
-                                    <!--text-align: right;-->
-                                <!--}-->
-                                <!--table{-->
-                                    <!--width: 100%;-->
-                                    <!--border: 1px solid #020202;-->
-                                    <!--border-collapse: collapse;-->
-                                     <!-- -webkit-box-sizing: border-box;-->
-                                     <!-- -moz-box-sizing: border-box;-->
-                                     <!-- -ms-box-sizing: border-box;-->
-                                     <!-- -o-box-sizing: border-box;-->
-                                    <!--box-sizing: border-box;-->
-                                <!--}-->
-                                <!--tr{-->
-                                    <!--height: 46px;-->
-                                <!--}-->
-                                <!--td{-->
-                                    <!--font-size: 14px;-->
-                                    <!--border: 1px solid #020202;-->
-                                    <!--padding: 5px;-->
-                                    <!--min-width: 70px;-->
-                                <!--}-->
-                                <!--.checkbox{-->
-                                    <!--position: relative;-->
-                                    <!--top: 2px;-->
-                                <!--}-->
-                            <!--</style>-->
+
                             <table id="datatable" class="table" cellspacing="0" border="1px solid #020202">
                                 <tbody>
                                 <tr>
@@ -81,15 +53,15 @@
                                     <td>付款方式</td>
                                     <td class="center">
                                         <span>报销</span>
-                                        <input class="checkbox" type="checkbox" disabled="disabled" />
+                                        <input class="checkbox" type="checkbox" disabled="disabled"/>
                                     </td>
                                     <td class="center">
                                         <span>备用金</span>
-                                        <input class="checkbox" type="checkbox" disabled="disabled" />
+                                        <input class="checkbox" type="checkbox" disabled="disabled"/>
                                     </td>
                                     <td class="center">
                                         <span>借款</span>
-                                        <input class="checkbox" type="checkbox" disabled="disabled" />
+                                        <input class="checkbox" type="checkbox" disabled="disabled"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -130,8 +102,12 @@
                             </table>
                         </div>
                         <div class="buttonWrap">
-                            <el-button type="primary" size="large" :disabled="istrue" :data-id="numPass" @click.stop.prevent="directionFn(numPass)">通过</el-button>
-                            <el-button type="danger" size="large" :disabled="istrue" :data-id="numRefuse" @click.stop.prevent="directionFn(numRefuse)">驳回</el-button>
+                            <el-button type="primary" size="large" :disabled="istrue" :data-id="numPass"
+                                       @click.stop.prevent="directionFn(numPass)">通过
+                            </el-button>
+                            <el-button type="danger" size="large" :disabled="istrue" :data-id="numRefuse"
+                                       @click.stop.prevent="directionFn(numRefuse)">驳回
+                            </el-button>
                         </div>
                     </div>
                 </div>
@@ -141,29 +117,31 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
+    import '../assets/js/excellentexport.min'
+
     export default {
-        name:'statement',
+        name: 'statement',
         data() {
             return {
-                id:'',
-                showid:'',
-                expenseReviewID:'',
-                bankAccount:'',
-                loginName:'',
-                projectName:'' || '--',
-                accountName:'',
-                expenseUserName:'',
-                creatTime:'',
-                accounNumber:'',
-                expenseTotal:'',
-                expenseTotalBig:'',
-                departName:'',
-                userList:null, //历史审批人集合
-                expenseInfo:null, //报销集合
+                id: '',
+                showid: '',
+                expenseReviewID: '',
+                bankAccount: '',
+                loginName: '',
+                projectName: '' || '--',
+                accountName: '',
+                expenseUserName: '',
+                creatTime: '',
+                accounNumber: '',
+                expenseTotal: '',
+                expenseTotalBig: '',
+                departName: '',
+                userList: null, //历史审批人集合
+                expenseInfo: null, //报销集合
                 istrue: true,
-                numPass:1,
-                numRefuse:2
+                numPass: 1,
+                numRefuse: 2
             }
         },
         methods: {
@@ -173,7 +151,7 @@
                 this.expenseReviewID = this.$route.query.expenseReviewID;
             },
             buttonControl(){
-                switch(Number.parseInt(this.showid)){
+                switch (Number.parseInt(this.showid)) {
                     case 2:
                         this.istrue = false;
                         break;
@@ -223,7 +201,8 @@
                                         type: 'warning'
                                     });
                                     return;
-                                };
+                                }
+                                ;
                                 break;
                             case "failure":
                                 this.$message({
@@ -242,7 +221,8 @@
                             type: 'warning'
                         });
                         return;
-                    };
+                    }
+                    ;
                 }).catch(err => {
                     console.log(err)
                     this.$message({
@@ -253,7 +233,15 @@
                 })
             },
             directionFn(num){
-                this.$router.push({path:'/audit',query:{flagid:num,expenseID:this.id,expenseReviewID:this.expenseReviewID,controlid:this.showid}});
+                this.$router.push({
+                    path: '/audit',
+                    query: {
+                        flagid: num,
+                        expenseID: this.id,
+                        expenseReviewID: this.expenseReviewID,
+                        controlid: this.showid
+                    }
+                });
             }
         },
         beforeMount(){
@@ -266,91 +254,129 @@
     }
 </script>
 
-<style scoped  lang="less" rel="stylesheet/less">
+<style scoped lang="less" rel="stylesheet/less">
     @import '../assets/less/public.less';
 
-    .center{
+    .center {
         text-align: center;
     }
-    .right{
+
+    .right {
         text-align: right;
     }
-    .wrap{
+
+    .wrap {
         padding-top: 14px;
-        >.inWrap{
-            >.inWrapTop{
-                 width: 1000px;
-                 margin: 0 auto;
-            >.crumbs{
-                 font-size: 14px;
-                 line-height: 2;
-             }
-            >.btnWrap{
-            >.downloadBtn,>.printBtn{
-                   font-size: 16px;
-                   width: 86px;
-                   height: 40px;
-                   border: 1px solid @bdColor;
-                    background-color: #fff;
-                   -webkit-border-radius: 4px;
-                   -moz-border-radius: 4px;
-                   -ms-border-radius: 4px;
-                   -o-border-radius: 4px;
-                   border-radius: 4px;
-                   cursor: pointer;
-               }
-            >.downloadBtn{
-                 color: #fff;
-                 text-decoration: none;
-                 text-align: center;
-                 line-height: 40px;
-                 display: block;
-                 background-color: #ed9127;
-                 border: 0;
-                 margin-left: 10px;
-             }
-            }
-            }
-            >.inWrapBottom{
-                 width: 100%;
-                 margin-top: 14px;
-                 background-color: #fff;
-            >.bgWrap{
-                 width: 1000px;
-                 margin: 0 auto;
-                 padding: 50px 0;
-            >.tableWrap{
-                 width: 100%;
-            >.table{
-                 width: 100%;
-                 border: 1px solid #020202;
-                border-collapse:collapse;
-            >tbody{
-            >tr{
-                 height: 46px;
-            >td{
-                 font-size: 14px;
-                 /*border: 1px solid #020202;*/
-                 padding: 5px;
-                 min-width: 70px;
-            >.checkbox{
-                 position: relative;
-                 top: 2px;
-             }
-             >p{
-                margin:5px 0;
-              }
-            }
-            }
-            }
-            }
-            }
-            >.buttonWrap{
-                margin-top: 20px;
-                text-align: right;
-             }
-            }
-            }
-        }
+
+    >
+    .inWrap {
+
+    >
+    .inWrapTop {
+        width: 1000px;
+        margin: 0 auto;
+
+    >
+    .crumbs {
+        font-size: 14px;
+        line-height: 2;
+    }
+
+    >
+    .btnWrap {
+
+    >
+    .downloadBtn,
+
+    >
+    .printBtn {
+        font-size: 16px;
+        width: 86px;
+        height: 40px;
+        border: 1px solid @bdColor;
+        background-color: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    >
+    .downloadBtn {
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+        line-height: 40px;
+        display: block;
+        background-color: #ed9127;
+        border: 0;
+        margin-left: 10px;
+    }
+
+    }
+    }
+    >
+    .inWrapBottom {
+        width: 100%;
+        margin-top: 14px;
+        background-color: #fff;
+
+    >
+    .bgWrap {
+        width: 1000px;
+        margin: 0 auto;
+        padding: 50px 0;
+
+    >
+    .tableWrap {
+        width: 100%;
+
+    >
+    .table {
+        width: 100%;
+        border: 1px solid #020202;
+        border-collapse: collapse;
+
+    >
+    tbody {
+
+    >
+    tr {
+        height: 46px;
+
+    >
+    td {
+        font-size: 14px;
+        /*border: 1px solid #020202;*/
+        padding: 5px;
+        min-width: 70px;
+
+    >
+    .checkbox {
+        position: relative;
+        top: 2px;
+    }
+
+    >
+    p {
+        margin: 5px 0;
+    }
+
+    }
+    }
+    }
+    }
+    }
+    >
+    .buttonWrap {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    }
+    }
+    }
     }
 </style>
