@@ -130,8 +130,8 @@
                             </table>
                         </div>
                         <div class="buttonWrap">
-                            <el-button type="primary" size="large" :disabled="istrue">通过</el-button>
-                            <el-button type="danger" size="large" :disabled="istrue">驳回</el-button>
+                            <el-button type="primary" size="large" :disabled="istrue" :data-id="numPass" @click.stop.prevent="directionFn(numPass)">通过</el-button>
+                            <el-button type="danger" size="large" :disabled="istrue" :data-id="numRefuse" @click.stop.prevent="directionFn(numRefuse)">驳回</el-button>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,9 @@
                 departName:'',
                 userList:null, //历史审批人集合
                 expenseInfo:null, //报销集合
-                istrue: true
+                istrue: true,
+                numPass:1,
+                numRefuse:2
             }
         },
         methods: {
@@ -171,7 +173,7 @@
                 this.expenseReviewID = this.$route.query.expenseReviewID;
             },
             buttonControl(){
-                switch(this.showid){
+                switch(Number.parseInt(this.showid)){
                     case 2:
                         this.istrue = false;
                         break;
@@ -250,6 +252,9 @@
                         type: 'error'
                     });
                 })
+            },
+            directionFn(num){
+                this.$router.push({path:'/audit',query:{id:num,expenseID:this.id,expenseReviewID:this.expenseReviewID}});
             }
         },
         beforeMount(){
