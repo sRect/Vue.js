@@ -480,7 +480,7 @@
             dbclick(row, event){
                 event.preventDefault();
                 event.stopPropagation();
-                this.$router.push({path:'/statement'}); //路由跳转
+                this.$router.push({path:'/statement',query:{showid:row.expenseState,expenseID:row.expenseID,expenseReviewID:row.expenseReviewID}}); //路由跳转
             },
             toExcel(){
                 const self = this;

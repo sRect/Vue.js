@@ -204,7 +204,6 @@
                                 let info = myData.info;
                                 if (JSON.stringify(info) !== "{}") {
                                     let dataArr = info.data;
-                                    console.log(dataArr);
 
                                     self.bankAccount = dataArr.BankAccount;
                                     self.loginName = dataArr.loginName;
