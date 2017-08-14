@@ -253,7 +253,7 @@
                 })
             },
             directionFn(num){
-                this.$router.push({path:'/audit',query:{id:num,expenseID:this.id,expenseReviewID:this.expenseReviewID}});
+                this.$router.push({path:'/audit',query:{flagid:num,expenseID:this.id,expenseReviewID:this.expenseReviewID,controlid:this.showid}});
             }
         },
         beforeMount(){
