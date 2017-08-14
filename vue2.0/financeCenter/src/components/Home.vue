@@ -144,7 +144,7 @@
                                     align="center">
                                     <template scope="scope">
                                         <slot>
-                                            <router-link :to="{path:'statement',query:{expenseID:scope.row.expenseID}}" :class="{hide:false}">
+                                            <router-link :to="{path:'statement',query:{expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class="{hide:false}">
                                                 <el-button
                                                     size="small"
                                                     :plain="true"
