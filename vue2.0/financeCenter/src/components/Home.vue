@@ -155,7 +155,7 @@
                                             </router-link>
                                         </slot>
                                         <slot>
-                                            <router-link :to="{path:'audit',query:{id:2,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class='{hide:false}'>
+                                            <router-link :to="{path:'audit',query:{flagid:2,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID,controlid:scope.row.expenseState}}" :class='{hide:false}'>
                                                 <el-button
                                                     size="small"
                                                     :plain="true"
@@ -166,7 +166,7 @@
                                             </router-link>
                                         </slot>
                                         <slot>
-                                            <router-link :to="{path:'audit',query:{id:1,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class="{hide:false}">
+                                            <router-link :to="{path:'audit',query:{flagid:1,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID,controlid:scope.row.expenseState}}" :class="{hide:false}">
                                                 <el-button
                                                     size="small"
                                                     :plain="true"

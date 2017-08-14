@@ -38,7 +38,16 @@
                         <!--</li>-->
                     </ul>
                     <div class="submitWrap">
-                        <input type="button" @click="submitFn" id="submitBtn" data-reviewtype="1" :class="{submitBtn:submit,refusedBtn:refused}" value="提交" title="点击提交" />
+                        <el-button
+                            :type="type"
+                            size="large"
+                            :class="{subBtn:true}"
+                            :disabled="istrue"
+                            title="点击提交"
+                            @click="submitFn">
+                            提交
+                        </el-button>
+                        <!--<input type="button" disabled="istrue" @click="submitFn" id="submitBtn" data-reviewtype="1" :class="{submitBtn:submit,refusedBtn:refused}" value="提交" title="点击提交" />-->
                     </div>
                 </div>
                 <div id="dialog" class="dialog">
@@ -56,24 +65,32 @@
         name:"audit",
         data() {
             return {
-                submit:true,
-                refused:false,
                 textarea:'',
-                a: this.$route.query.id, //获取路由传参参数
+                controlid: this.$route.query.controlid,
+                flagid: this.$route.query.flagid,
                 dialogImageUrl: '',
-                dialogVisible: false
+                dialogVisible: false,
+                istrue: true,
+                type: "primary"
             }
         },
         methods: {
-            getParams(){ //底部提交按钮显示控制
-                switch(this.a){
+            getParams(){
+                switch(Number.parseInt(this.controlid)){
+                    case 2:
+                        this.istrue = false;
+                        break;
+                    default:
+                        this.istrue = true;
+                        break;
+                }
+
+                switch(Number.parseInt(this.flagid)) {
                     case 1:
-                        this.submit = true;
-                        this.refused = false;
+                        this.type = "primary";
                         break;
                     case 2:
-                        this.submit = true;
-                        this.refused = true;
+                        this.type = "danger";
                         break;
                     default:
                         break;
@@ -299,7 +316,7 @@
          width: 100%;
          margin-top: 100px;
          text-align: center;
-    >.submitBtn{
+    /*>.submitBtn{
          color: #fff;
          font-size: 22px;
          width: 284px;
@@ -309,7 +326,7 @@
      }
     >.refusedBtn{
          background-color: #f55a2c;
-     }
+     }*/
     }
     }
     >.dialog{
@@ -340,5 +357,8 @@
          display: block;
      }
     }
+    }
+    .subBtn{
+        width: 270px;
     }
 </style>
