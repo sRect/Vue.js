@@ -129,6 +129,10 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="buttonWrap">
+                            <el-button type="primary" size="large" :disabled="istrue">通过</el-button>
+                            <el-button type="danger" size="large" :disabled="istrue">驳回</el-button>
+                        </div>
                     </div>
                 </div>
                 <!-- 主体结构结束 -->
@@ -143,6 +147,8 @@
         data() {
             return {
                 id:'',
+                showid:'',
+                expenseReviewID:'',
                 bankAccount:'',
                 loginName:'',
                 projectName:'' || '--',
@@ -154,12 +160,25 @@
                 expenseTotalBig:'',
                 departName:'',
                 userList:null, //历史审批人集合
-                expenseInfo:null //报销集合
+                expenseInfo:null, //报销集合
+                istrue: true
             }
         },
         methods: {
             getParams(){
+                this.showid = this.$route.query.showid;
                 this.id = this.$route.query.expenseID;
+                this.expenseReviewID = this.$route.query.expenseReviewID;
+            },
+            buttonControl(){
+                switch(this.showid){
+                    case 2:
+                        this.istrue = false;
+                        break;
+                    default:
+                        this.istrue = true;
+                        break;
+                }
             },
             getData(){
                 const self = this;
@@ -238,6 +257,7 @@
         },
         mounted(){
             this.getData();
+            this.buttonControl();
         }
     }
 </script>
@@ -321,6 +341,10 @@
             }
             }
             }
+            >.buttonWrap{
+                margin-top: 20px;
+                text-align: right;
+             }
             }
             }
         }
