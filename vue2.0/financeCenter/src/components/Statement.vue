@@ -382,6 +382,9 @@
     }
 
     }
+    >td:nth-child(1){
+         min-width: 150px;
+     }
     }
     }
     }
