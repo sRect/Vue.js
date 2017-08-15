@@ -9,6 +9,7 @@ import '../node_modules/element-ui/lib/theme-default/index.css'
 
 import $ from 'jquery'
 import './assets/js/common2.js'
+import Exceltoexport from './components/exceltoexport'
 
 import filters from './filters'
 import { Loading } from 'element-ui';
@@ -18,6 +19,7 @@ Object.keys(filters).forEach(item => {Vue.filter(item,filters[item])})
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
+Vue.use(Exceltoexport)
 
 axios.defaults.timeout = 5000; //响应时间
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头
