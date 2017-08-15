@@ -1,9 +1,5 @@
-import {expenseStateFilter} from './expenstateFormat'
-
-//module.exports = {
-//    expenseStateFilter
-//}
+import {departIDFilter} from './departIDFormat'
 
 export default {
-    expenseStateFilter
+    departIDFilter
 }

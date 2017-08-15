@@ -24,6 +24,14 @@
                                     <td class="center" colspan="7">付款申请单</td>
                                 </tr>
                                 <tr>
+                                    <td>审批单号</td>
+                                    <td v-text="expenseNo" id="expenseNo" class="center" colspan="2"></td>
+                                    <td>公司</td>
+                                    <td id="companyName" class="center" colspan="3">
+                                        {{departID | departIDFilter}}
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>部门</td>
                                     <td v-text="departName" id="departName" class="center" colspan="2"></td>
                                     <td>收款人工号</td>
@@ -139,6 +147,8 @@
                 userList: null, //历史审批人集合
                 expenseInfo: null, //报销集合
                 istrue: true,
+                expenseNo:'',
+                departID:'',
                 numPass: 1,
                 numRefuse: 2
             }
@@ -193,6 +203,8 @@
                                     self.expenseTotalBig = dataArr.expenseTotalBig;
                                     self.expenseInfo = dataArr.expenseInfo;
                                     self.userList = dataArr.userList;
+                                    self.expenseNo = dataArr.expenseNo;
+                                    self.departID = dataArr.departID;
                                 } else {
                                     this.$message({
                                         showClose: true,
@@ -221,7 +233,6 @@
                         });
                         return;
                     }
-                    ;
                 }).catch(err => {
                     console.log(err)
                     this.$message({
