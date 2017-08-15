@@ -7,11 +7,9 @@
                         <span>轩天实业 > 财务中心 > 报销</span>
                     </div>
                     <div class="btnWrap fr clearfix">
-                        <input id="printBtn" type="button" class="printBtn" value="打印" title="打印表格"/>
+                        <input @click.stop.prevent="print" id="printBtn" type="button" class="printBtn" value="打印" title="打印表格"/>
                         <!-- <input type="button" class="downloadBtn" value="下载" title="下载表格" /> -->
-                        <a id="downloadBtn" class="downloadBtn fr" download="付款申请单.xls" href="#"
-                           onclick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');"
-                           title="下载表格">下载</a>
+                        <a id="downloadBtn" class="downloadBtn fr" download="付款申请单.xls"  href="#" onclick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');" title="下载表格">下载</a>
                     </div>
                 </div>
                 <!-- 主体结构开始 -->
@@ -118,7 +116,8 @@
 </template>
 
 <script>
-    import '../assets/js/excellentexport.min'
+    import '../assets/js/excellentexport.min';
+    import '../assets/js/jquery.PrintArea';
 
     export default {
         name: 'statement',
@@ -242,6 +241,9 @@
                         controlid: this.showid
                     }
                 });
+            },
+            print(){
+                $("#printContent").printArea();
             }
         },
         beforeMount(){
@@ -252,6 +254,7 @@
             this.buttonControl();
         }
     }
+
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">

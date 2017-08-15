@@ -21,10 +21,18 @@
                         <div class="clearfix">
                             <div class="fl">
                                 <span>审批状态:</span>
-                                <el-button :plain="true" type="info" data-type="0" @click.native="change($event)" :class="{activeClick:activeArr[0]}">不限</el-button>
-                                <el-button :plain="true" type="info" data-type="1" @click.native="change($event)" :class="{activeClick:activeArr[1]}">完成</el-button>
-                                <el-button :plain="true" type="info" data-type="2" @click.native="change($event)" :class="{activeClick:activeArr[2]}">待出款</el-button>
-                                <el-button :plain="true" type="info" data-type="3" @click.native="change($event)" :class="{activeClick:activeArr[3]}">驳回</el-button>
+                                <el-button :plain="true" type="info" data-type="0" @click.native="change($event)"
+                                           :class="{activeClick:activeArr[0]}">不限
+                                </el-button>
+                                <el-button :plain="true" type="info" data-type="1" @click.native="change($event)"
+                                           :class="{activeClick:activeArr[1]}">完成
+                                </el-button>
+                                <el-button :plain="true" type="info" data-type="2" @click.native="change($event)"
+                                           :class="{activeClick:activeArr[2]}">待出款
+                                </el-button>
+                                <el-button :plain="true" type="info" data-type="3" @click.native="change($event)"
+                                           :class="{activeClick:activeArr[3]}">驳回
+                                </el-button>
                             </div>
                             <div class="fr">
                                 <span>提交时间:</span>
@@ -52,133 +60,139 @@
                                     style="width: 100%;"
                                     @row-dblclick="dbclick">
                                 <el-table-column
-                                    prop="expenseNo"
-                                    label="审批单号"
-                                    width="180"
-                                    align="center">
+                                        prop="expenseNo"
+                                        label="审批单号"
+                                        width="180"
+                                        align="center">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="creatTime"
-                                    label="发起时间"
-                                    width="160"
-                                    align="center"
-                                    :formatter="formatterCreatTime">
+                                        prop="creatTime"
+                                        label="发起时间"
+                                        width="160"
+                                        align="center"
+                                        :formatter="formatterCreatTime">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="expenseUserName"
-                                    label="发起人"
-                                    width="100"
-                                    align="center">
+                                        prop="expenseUserName"
+                                        label="发起人"
+                                        width="100"
+                                        align="center">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="departName"
-                                    label="报销部门"
-                                    width="130"
-                                    align="center"
-                                    :show-overflow-tooltip="true">
+                                        prop="departName"
+                                        label="报销部门"
+                                        width="130"
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="accountName"
-                                    label="开户人姓名"
-                                    width="110"
-                                    align="center"
-                                    :show-overflow-tooltip="true">
+                                        prop="accountName"
+                                        label="开户人姓名"
+                                        width="110"
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="BankAccount"
-                                    label="开户行"
-                                    width="200"
-                                    align="center"
-                                    :show-overflow-tooltip="true">
+                                        prop="BankAccount"
+                                        label="开户行"
+                                        width="200"
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="accounNumber"
-                                    label="银行账号"
-                                    width="150"
-                                    align="center"
-                                    :show-overflow-tooltip="true">
+                                        prop="accounNumber"
+                                        label="银行账号"
+                                        width="150"
+                                        align="center"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="itemAlltotal"
-                                    label="报销金额"
-                                    width="150"
-                                    align="center"
-                                    :formatter="formatterItemAlltotal"
-                                    :show-overflow-tooltip="true">
+                                        prop="itemAlltotal"
+                                        label="报销金额"
+                                        width="150"
+                                        align="center"
+                                        :formatter="formatterItemAlltotal"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="productTypeName"
-                                    label="报销类型"
-                                    width="150"
-                                    align="center"
-                                    :formatter="formatterProductTypeName"
-                                    :show-overflow-tooltip="true">
+                                        prop="productTypeName"
+                                        label="报销类型"
+                                        width="150"
+                                        align="center"
+                                        :formatter="formatterProductTypeName"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="remark"
-                                    label="费用明细"
-                                    width="150"
-                                    align="center"
-                                    :show-overflow-tooltip="true"
-                                    :formatter="formatterRemark">
+                                        prop="remark"
+                                        label="费用明细"
+                                        width="150"
+                                        align="center"
+                                        :show-overflow-tooltip="true"
+                                        :formatter="formatterRemark">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="expenseTotal"
-                                    label="总报销金额"
-                                    width="130"
-                                    align="center"
-                                    :formatter="formatterTotal">
+                                        prop="expenseTotal"
+                                        label="总报销金额"
+                                        width="130"
+                                        align="center"
+                                        :formatter="formatterTotal">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="expenseState"
-                                    label="审批状态"
-                                    width="100"
-                                    align="center"
-                                    :formatter="formatterExpenseState">
+                                        prop="expenseState"
+                                        label="审批状态"
+                                        width="100"
+                                        align="center"
+                                        :formatter="formatterExpenseState">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="userName"
-                                    label="历史审批人"
-                                    width="130"
-                                    align="center"
-                                    :formatter="formatterUsername"
-                                    :show-overflow-tooltip="true">
+                                        prop="userName"
+                                        label="历史审批人"
+                                        width="130"
+                                        align="center"
+                                        :formatter="formatterUsername"
+                                        :show-overflow-tooltip="true">
                                 </el-table-column>
                                 <el-table-column
-                                    label="操作"
-                                    width="240"
-                                    fixed="right"
-                                    align="center">
+                                        label="操作"
+                                        width="240"
+                                        fixed="right"
+                                        align="center">
                                     <template scope="scope">
                                         <slot>
-                                            <router-link :to="{path:'statement',query:{showid:scope.row.expenseState,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}" :class="{hide:false}">
+                                            <router-link
+                                                    :to="{path:'statement',query:{showid:scope.row.expenseState,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID}}"
+                                                    :class="{hide:false}">
                                                 <el-button
-                                                    size="small"
-                                                    :plain="true"
-                                                    type="info"
-                                                    icon="document">
+                                                        size="small"
+                                                        :plain="true"
+                                                        type="info"
+                                                        icon="document">
                                                     报表
                                                 </el-button>
                                             </router-link>
                                         </slot>
                                         <slot>
-                                            <router-link :to="{path:'audit',query:{flagid:2,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID,controlid:scope.row.expenseState}}" :class='{hide:false}'>
+                                            <router-link
+                                                    :to="{path:'audit',query:{flagid:2,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID,controlid:scope.row.expenseState}}"
+                                                    :class='{hide:false}'>
                                                 <el-button
-                                                    size="small"
-                                                    :plain="true"
-                                                    type="danger"
-                                                    icon="circle-cross">
+                                                        size="small"
+                                                        :plain="true"
+                                                        type="danger"
+                                                        icon="circle-cross">
                                                     驳回
                                                 </el-button>
                                             </router-link>
                                         </slot>
                                         <slot>
-                                            <router-link :to="{path:'audit',query:{flagid:1,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID,controlid:scope.row.expenseState}}" :class="{hide:false}">
+                                            <router-link
+                                                    :to="{path:'audit',query:{flagid:1,expenseID:scope.row.expenseID,expenseReviewID:scope.row.expenseReviewID,controlid:scope.row.expenseState}}"
+                                                    :class="{hide:false}">
                                                 <el-button
-                                                    size="small"
-                                                    :plain="true"
-                                                    type="success"
-                                                    icon="circle-check">
+                                                        size="small"
+                                                        :plain="true"
+                                                        type="success"
+                                                        icon="circle-check">
                                                     通过
                                                 </el-button>
                                             </router-link>
@@ -212,23 +226,23 @@
             return {
                 dataCount: 0,
                 PageSize: 10,
-                pageNum:0,
-                activeArr:[true,false,false,false],
-                activeNum:0,
+                pageNum: 0,
+                activeArr: [true, false, false, false],
+                activeNum: 0,
                 searchInput: '',
                 startdate: '',
                 enddate: '',
                 currentPage4: 1,
                 tableData3: [],
                 fullscreenLoading: false,
-                expenseIDarr:[],
-                expenseReviewIDarr:[]
+                expenseIDarr: [],
+                expenseReviewIDarr: []
             }
         },
         methods: {
             getTableData(params){
-                let self =this;
-                this.$http.post('/ddExpenses/pc_expense/financeExpenseList.do',params).then(data => {
+                let self = this;
+                this.$http.post('/ddExpenses/pc_expense/financeExpenseList.do', params).then(data => {
                     console.log(data)
                     let myData = data.data;
                     if (JSON.stringify(myData) !== "{}") {
@@ -242,7 +256,7 @@
                                     if (dataArr.length) {
                                         let arr = [];
 
-                                        for (let i = 0,len = dataArr.length; i < len; i++){
+                                        for (let i = 0, len = dataArr.length; i < len; i++) {
                                             let expenseInfoArr = null;
                                             expenseInfoArr = dataArr[i].expenseInfo;
                                             arr.push({
@@ -253,9 +267,9 @@
                                                 BankAccount: dataArr[i].BankAccount,
                                                 accounNumber: dataArr[i].accounNumber,
                                                 itemAlltotal: expenseInfoArr,
-                                                productTypeName:expenseInfoArr,
+                                                productTypeName: expenseInfoArr,
                                                 remark: expenseInfoArr,
-                                                expenseTotal:dataArr[i].expenseTotal,
+                                                expenseTotal: dataArr[i].expenseTotal,
                                                 expenseState: dataArr[i].expenseState,
                                                 userName: dataArr[i].userList,
                                                 expenseID: dataArr[i].id,
@@ -274,7 +288,8 @@
                                             type: 'warning'
                                         });
                                         return;
-                                    };
+                                    }
+                                    ;
                                 } else {
                                     this.tableData3 = [];
                                     this.$message({
@@ -283,7 +298,8 @@
                                         type: 'warning'
                                     });
                                     return;
-                                };
+                                }
+                                ;
                                 break;
                             case "failure":
                                 this.$message({
@@ -303,7 +319,8 @@
                             type: 'warning'
                         });
                         return;
-                    };
+                    }
+                    ;
 
                 }).catch(err => {
                     this.tableData3 = [];
@@ -323,14 +340,14 @@
                 params.append('search', this.searchInput);
                 params.append('type', this.activeNum);
                 params.append('startTime', this.startdate);
-                params.append('endTime',this.enddate);
+                params.append('endTime', this.enddate);
                 this.getTableData(params);
             },
             handleCurrentChange(val) {
 //                this.pageNum = val -1;
                 let params = new URLSearchParams();
                 params.append('userID', 2);
-                params.append('pageNum', val-1);
+                params.append('pageNum', val - 1);
                 params.append('pageSize', this.PageSize);
                 params.append('search', this.searchInput);
                 params.append('type', this.activeNum);
@@ -339,20 +356,20 @@
                 this.getTableData(params);
             },
             formatterExpenseState(row, column, cellValue){ //格式化审批状态
-               switch(cellValue){
-                   case 2:
-                       return "待出款"
-                       break;
-                   case 3:
-                       return "完成"
-                       break;
-                   case 9:
-                       return "驳回"
-                       break;
-                   default:
-                       return "--"
-                       break;
-               }
+                switch (cellValue) {
+                    case 2:
+                        return "待出款"
+                        break;
+                    case 3:
+                        return "完成"
+                        break;
+                    case 9:
+                        return "驳回"
+                        break;
+                    default:
+                        return "--"
+                        break;
+                }
             },
             formatterTotal(row, column, cellValue){ //格式化金额
                 let Num = parseInt(cellValue);
@@ -367,21 +384,21 @@
             },
             formatterUsername(row, column, cellValue){ //格式化历史审批人
                 let str = '';
-                for(let i = 0,len = cellValue.length; i < len; i++){
+                for (let i = 0, len = cellValue.length; i < len; i++) {
                     str += cellValue[i].userName + ' ';
                 }
                 return str;
             },
             formatterProductTypeName(row, column, cellValue){ //格式化报销类型
                 let str = '';
-                for(let i = 0,len = cellValue.length; i < len; i++){
+                for (let i = 0, len = cellValue.length; i < len; i++) {
                     str += cellValue[i].productTypeName + '　';
                 }
                 return str;
             },
             formatterItemAlltotal(row, column, cellValue){ //格式化报销金额
                 let str = '';
-                for(let i = 0,len = cellValue.length; i < len; i++){
+                for (let i = 0, len = cellValue.length; i < len; i++) {
                     let Num = parseInt(cellValue[i].itemAlltotal);
                     cellValue[i].itemAlltotal = cellValue[i].itemAlltotal + '';
                     if (cellValue[i].itemAlltotal.length >= 9) {
@@ -396,13 +413,13 @@
             },
             formatterRemark(row, column, cellValue){ //格式化费用明细
                 let str = '';
-                for(let i = 0,len = cellValue.length; i < len; i++){
+                for (let i = 0, len = cellValue.length; i < len; i++) {
                     str += cellValue[i].remark + '　';
                 }
                 return str;
             },
             formatterCreatTime(row, column, cellValue){
-                if(cellValue){
+                if (cellValue) {
                     let oDate = new Date(cellValue);
                     let hour = oDate.getHours().toString();
                     let ohour = hour.length == '2' ? hour : '0' + hour;
@@ -411,28 +428,28 @@
                     let month = parseInt(oDate.getMonth()) + 1;
 
                     return oDate.getFullYear() + "/" + month + "/" + oDate.getDate() + "　" + ohour + ":" + ominutes
-                }else{
+                } else {
                     return '--';
                 }
             },
             change(event){
                 let type = event.currentTarget.dataset["type"];
                 console.log(type)
-                switch(type){
+                switch (type) {
                     case "0":
-                        this.activeArr = [true,false,false,false];
+                        this.activeArr = [true, false, false, false];
                         this.activeNum = 0;
                         break;
                     case "1":
-                        this.activeArr = [false,true,false,false];
+                        this.activeArr = [false, true, false, false];
                         this.activeNum = 1;
                         break;
                     case "2":
-                        this.activeArr = [false,false,true,false];
+                        this.activeArr = [false, false, true, false];
                         this.activeNum = 2;
                         break;
                     case "3":
-                        this.activeArr = [false,false,false,true];
+                        this.activeArr = [false, false, false, true];
                         this.activeNum = 3;
                         break;
                     default:
@@ -459,13 +476,13 @@
             },
             compaireFn(){
                 let reg = /^\d+$/;
-                if(this.startdate && this.enddate){
+                if (this.startdate && this.enddate) {
                     let num = '';
                     let startval = this.startdate.split("-").join('');
                     let endval = this.enddate.split("-").join('');
-                        num = endval - startval;
+                    num = endval - startval;
 
-                    if(reg.test(num)){
+                    if (reg.test(num)) {
                         let params = new URLSearchParams();
                         params.append('userID', 2);
                         params.append('pageNum', 0);
@@ -475,7 +492,7 @@
                         params.append('startTime', this.startdate);
                         params.append('endTime', this.enddate);
                         this.getTableData(params);
-                    }else{
+                    } else {
                         this.$message({
                             showClose: true,
                             message: "日期选择不合法",
@@ -502,7 +519,10 @@
             dbclick(row, event){
                 event.preventDefault();
                 event.stopPropagation();
-                this.$router.push({path:'/statement',query:{showid:row.expenseState,expenseID:row.expenseID,expenseReviewID:row.expenseReviewID}}); //路由跳转
+                this.$router.push({
+                    path: '/statement',
+                    query: {showid: row.expenseState, expenseID: row.expenseID, expenseReviewID: row.expenseReviewID}
+                }); //路由跳转
             },
             toExcel(){
                 const self = this;
@@ -514,7 +534,7 @@
                 // 测试
                 // form.setAttribute("action", "www.ehaofangwang.com/ddExpenses/pc_expense/exportExpense.do?userID="+2+'&search='+val+'&type='+typeid+'&startTime='+startTime+'&endTime='+endTime);
                 // 本地
-                form.setAttribute("action", "http://192.168.1.30:8080/ddExpenses/pc_expense/exportExpense.do?userID=2&search=" + self.searchInput + '&type=' +  self.activeNum + '&startTime=' + self.startdate + '&endTime=' + self.enddate);
+                form.setAttribute("action", "http://192.168.1.30:8080/ddExpenses/pc_expense/exportExpense.do?userID=2&search=" + self.searchInput + '&type=' + self.activeNum + '&startTime=' + self.startdate + '&endTime=' + self.enddate);
 
                 document.body.appendChild(form);
                 form.appendChild(input);
@@ -539,32 +559,45 @@
 <style lang="less">
     .wrap {
         width: 100%;
-    > .inWrap {
-    > .inWrapTop {
-          width: 1000px;
-          margin: 0 auto;
-          padding: 14px 0;
-          height: 42px;
-      }
-    > .inWrapBottom{
-          width: 100%;
-          background-color: #fff;
-    > .bgWrap{
-          width: 1000px;
-          padding: 40px 0;
-          margin: 0 auto;
-    > .tableWrap{
-          margin-top: 40px;
-      }
-    > .pageTool{
-          margin-top: 40px;
-          text-align: center;
-      }
+
+    >
+    .inWrap {
+
+    >
+    .inWrapTop {
+        width: 1000px;
+        margin: 0 auto;
+        padding: 14px 0;
+        height: 42px;
+    }
+
+    >
+    .inWrapBottom {
+        width: 100%;
+        background-color: #fff;
+
+    >
+    .bgWrap {
+        width: 1000px;
+        padding: 40px 0;
+        margin: 0 auto;
+
+    >
+    .tableWrap {
+        margin-top: 40px;
+    }
+
+    >
+    .pageTool {
+        margin-top: 40px;
+        text-align: center;
+    }
+
     }
     }
     }
     }
-    .activeClick{
+    .activeClick {
         border-color: #48ace6 !important;
         color: #48ace6 !important;
     }
