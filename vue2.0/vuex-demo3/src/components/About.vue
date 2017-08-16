@@ -1,12 +1,16 @@
 <template>
   <div>
-      这是首页
+      {{msg}}
   </div>
 </template>
 
 <script>
 export default {
-  
+  data(){
+      return{
+          msg:'这是关于'
+      }
+  }
 }
 </script>
 
