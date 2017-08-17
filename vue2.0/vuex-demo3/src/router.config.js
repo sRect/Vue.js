@@ -1,11 +1,11 @@
-import Content from './components/Content.vue'
+import Home from './components/Home.vue'
 import About from './components/About.vue'
 import News from './components/News.vue'
 
 export default [
     {
-        path:'/content',
-        component:Content
+        path:'/home',
+        component:Home
     },
     {
         path:'/about',
@@ -17,10 +17,10 @@ export default [
     },
     {
         path: '/',
-        redirect: '/content'
+        redirect: '/home'
     },
     {
         path: '*',
-        redirect: '/content'
+        redirect: '/home'
     }
 ]

@@ -2,13 +2,13 @@
     <div id="header">
         <mt-navbar v-model="selected">                       
             <mt-tab-item id="1">
-                <router-link to="/content">主页</router-link> 
+                <router-link to="/home" tag="span">主页</router-link> 
             </mt-tab-item>
             <mt-tab-item id="2">
-                <router-link to="/news">新闻</router-link>
+                <router-link to="/news" tag="span">新闻</router-link>
             </mt-tab-item>
             <mt-tab-item id="3">
-                <router-link to="/about">关于</router-link>
+                <router-link to="/about" tag="span">关于</router-link>
             </mt-tab-item>         
         </mt-navbar>
 

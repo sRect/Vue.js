@@ -1,16 +1,17 @@
 <template>
-  <div>
-      {{msg}}
-  </div>
+    <div id="about">
+        {{msg}}
+    </div>
 </template>
 
 <script>
 export default {
-  data(){
-      return{
-          msg:'这是关于'
-      }
-  }
+    name: 'about',
+    data() {
+        return {
+            msg: '这是关于'
+        }
+    }
 }
 </script>
 
