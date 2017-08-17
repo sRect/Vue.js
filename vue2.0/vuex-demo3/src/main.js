@@ -5,6 +5,8 @@ import routes from './router.config'
 import 'mint-ui/lib/style.css'
 import App from './App.vue'
 
+import store from './store/store'
+
 Vue.use(VueRouter)
 Vue.use(MintUI)
 
@@ -17,5 +19,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })
