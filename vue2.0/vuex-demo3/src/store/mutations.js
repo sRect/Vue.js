@@ -9,6 +9,9 @@ const state = {
 const mutations = {
     [FOOTER_SHOW](state){
         state.footershow = true
+    },
+    [FOOTER_HIDE](state){
+        state.footershow = false
     }
 }
 

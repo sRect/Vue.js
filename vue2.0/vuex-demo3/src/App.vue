@@ -39,14 +39,14 @@ export default {
       if (path.includes('about')) {
         this.$store.dispatch('showFooter')
       } else {
-        // console.log('不在关于')
+        this.$store.dispatch('hideFooter')
       }
     }
   },
   mounted() {
     console.log(this.footerShow)
-    // let path = this.$route.path.substring(1);
-    // this.footerChange(path)
+    let path = this.$route.path.substring(1);
+    this.footerChange(path)
   }
 }
 </script>
