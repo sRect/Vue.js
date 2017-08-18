@@ -44,7 +44,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.footerShow)
     let path = this.$route.path.substring(1);
     this.footerChange(path)
   }

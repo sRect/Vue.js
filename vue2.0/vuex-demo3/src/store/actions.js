@@ -6,5 +6,8 @@ export default {
     },
     hideFooter: ({ commit }) => {
         commit(types.FOOTER_HIDE)
+    },
+    increment:({commit}) => {
+        commit(types.INCREMENT)
     }
 }
