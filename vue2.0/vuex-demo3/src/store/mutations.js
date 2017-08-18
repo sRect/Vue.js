@@ -1,4 +1,4 @@
-import { FOOTER_SHOW, FOOTER_HIDE,INCREMENT } from './type'
+import { FOOTER_SHOW, FOOTER_HIDE,INCREMENT,DECREMENT } from './type'
 // import state from './state'
 // import getters from './getters'
 
@@ -16,6 +16,9 @@ const mutations = {
     },
     [INCREMENT](state){
         state.count++;
+    },
+    [DECREMENT](state){
+        state.count--;
     }
 }
 

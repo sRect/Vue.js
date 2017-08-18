@@ -9,5 +9,8 @@ export default {
     },
     increment:({commit}) => {
         commit(types.INCREMENT)
+    },
+    decreament:({commit})=>{
+        commit(types.DECREMENT)
     }
 }
