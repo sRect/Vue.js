@@ -26,24 +26,12 @@ const mutations = {
                 duration: 2000
             });
             return;
-        }else{
+        } else {
             state.count--;
-        }  
+        }
 
     }
 }
-
-// const getters = {
-//     footerShow(state) {
-//         return state.footershow;
-//     },
-//     getCount(state) {
-//         return state.count;
-//     },
-//     isOdd(state){
-//         return state.count % 2 === 0 ? '偶数' : '奇数'
-//     }
-// }
 
 export default {
     state,
