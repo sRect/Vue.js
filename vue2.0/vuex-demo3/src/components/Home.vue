@@ -5,7 +5,9 @@
         <mt-button type="default" @click="increment">增加</mt-button>
         <mt-button type="danger" @click="decreament">减少</mt-button>
       </div>
-      <p>{{getCount}}</p>
+
+      <mt-badge type="primary">{{getCount}}</mt-badge>
+      <p>{{isOdd}}</p>
   </div>
 </template>
 
@@ -15,7 +17,8 @@ import { mapGetters } from 'vuex'
 export default {
   name:'home',
   computed: mapGetters([
-    'getCount'
+    'getCount',
+    'isOdd'
   ]),
   data(){
     return {
