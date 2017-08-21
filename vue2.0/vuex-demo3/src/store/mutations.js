@@ -1,6 +1,6 @@
 import { FOOTER_SHOW, FOOTER_HIDE, INCREMENT, DECREMENT } from './type'
 // import state from './state'
-// import getters from './getters'
+import getters from './getters'
 import { Toast } from 'mint-ui';
 
 const state = {
@@ -33,17 +33,17 @@ const mutations = {
     }
 }
 
-const getters = {
-    footerShow(state) {
-        return state.footershow;
-    },
-    getCount(state) {
-        return state.count;
-    },
-    isOdd(state){
-        return state.count % 2 === 0 ? '偶数' : '奇数'
-    }
-}
+// const getters = {
+//     footerShow(state) {
+//         return state.footershow;
+//     },
+//     getCount(state) {
+//         return state.count;
+//     },
+//     isOdd(state){
+//         return state.count % 2 === 0 ? '偶数' : '奇数'
+//     }
+// }
 
 export default {
     state,
