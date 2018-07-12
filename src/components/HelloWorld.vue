@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
     <p>num: {{ num }}</p>
     <button @click.stop.prevent="handleIncreament">increament</button>
-    <button>decreament</button>
+    <button @click="handleDecreament">decreament</button>
   </div>
 </template>
 
@@ -23,6 +23,9 @@ export default {
   methods: {
     handleIncreament() {
       this.$store.dispatch('increament')
+    },
+    handleDecreament() {
+      this.$store.dispatch('decreament')
     }
   }
 }
