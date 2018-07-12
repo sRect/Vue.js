@@ -10,7 +10,8 @@ const state = {
       password: 123
     },
     commonuser: []
-  }
+  },
+  isLogin: false
 }
 
 export default state

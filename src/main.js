@@ -8,14 +8,18 @@ import store from './store'
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  const role = store.getters.currentuser
+  if (store.getters.islogin) {
+    const role = store.getters.currentuser || 'comments'
 
-  store.dispatch('GenerateRoutes', role).then(() => {
-    router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-    next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-  }).catch(error => {
-    console.log(error)
-  })
+    store.dispatch('GenerateRoutes', role).then(() => {
+      router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+      next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+    }).catch(error => {
+      console.log(error)
+    })
+  } else {
+    next({ path: '/' })
+  }
 })
 
 /* eslint-disable no-new */

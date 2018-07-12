@@ -25,11 +25,14 @@ export default {
   },
   GenerateRoutes: ({ commit }, role) => {
     return new Promise((resolve) => {
+      // 根据权限需要加载的路由
       const accessedRouters = asyncRouterMap.filter(item => {
         if (role === types.ADMIN) {
-          return item.meta.role.indexOf(role)
+          return item.meta.role.indexOf(role) > 0
         } else if (role === types.SUPERADMIN) {
-          return item.meta.role.indexOf(role)
+          return item.meta.role.indexOf(role) > 0
+        } else {
+          return []
         }
       })
 
