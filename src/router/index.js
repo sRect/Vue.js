@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import Admin from '@/components/Admin'
+import SuperAdmin from '@/components/SuperAdmin'
 import Error from '@/components/Error'
 
 Vue.use(Router)
@@ -37,6 +38,14 @@ export const asyncRouterMap = [
     component: Admin,
     meta: {
       role: ['admin'] // 页面需要的权限
+    }
+  },
+  {
+    path: '/superadmin',
+    name: 'SuperAdmin',
+    component: SuperAdmin,
+    meta: {
+      role: ['superadmin'] // 页面需要的权限
     }
   },
   {

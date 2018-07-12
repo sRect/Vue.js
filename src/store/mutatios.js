@@ -13,7 +13,11 @@ const mutatios = {
     }
   },
   [types.LOGIN](state, arg) {
+    state.loginInfo.currentuser = arg.username
     state.loginInfo.commonuser.push(arg)
+  },
+  [types.GENERATEROUTES](state, accessedRouters) {
+    state.routers = [...state.routers, ...accessedRouters]
   }
 }
 
