@@ -20,8 +20,10 @@ export default {
   computed: {
     ...mapGetters(['num'])
   },
-  handleIncreament() {
-    this.store.dispatch('increament')
+  methods: {
+    handleIncreament() {
+      this.$store.dispatch('increament')
+    }
   }
 }
 </script>
