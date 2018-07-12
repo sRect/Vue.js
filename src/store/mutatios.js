@@ -11,6 +11,9 @@ const mutatios = {
       state.num = 0
       alert('不可再减了')
     }
+  },
+  [types.LOGIN](state, arg) {
+    state.loginInfo.commonuser.push(arg)
   }
 }
 
