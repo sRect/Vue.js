@@ -8,7 +8,7 @@ export default {
   addRouters(state) {
     return state.routers
   },
-  islogin(state) {
-    return state.islogin
+  isLogin(state) {
+    return state.isLogin
   }
 }

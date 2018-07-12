@@ -4,6 +4,13 @@
     <p>num: {{ num }}</p>
     <button @click.stop.prevent="handleIncreament">increament</button>
     <button @click="handleDecreament">decreament</button>
+
+    <hr>
+    <p>
+      <b>权限跳转控制</b> <br>
+      <router-link to="/admin">跳转admin</router-link>
+      <router-link to="/superadmin">跳转超级admin</router-link>
+    </p>
   </div>
 </template>
 

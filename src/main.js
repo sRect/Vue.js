@@ -8,8 +8,8 @@ import store from './store'
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  if (store.getters.islogin) {
-    const role = store.getters.currentuser || 'comments'
+  if (store.getters.isLogin) {
+    const role = store.getters.currentuser.toUpperCase() || 'comments'
 
     store.dispatch('GenerateRoutes', role).then(() => {
       router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
       console.log(error)
     })
   } else {
-    next({ path: '/' })
+    next()
   }
 })
 
