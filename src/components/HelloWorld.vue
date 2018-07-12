@@ -1,16 +1,27 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <p>num: {{ num }}</p>
+    <button @click.stop.prevent="handleIncreament">increament</button>
+    <button>decreament</button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'HelloWorld',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'vuex demo'
     }
+  },
+  computed: {
+    ...mapGetters(['num'])
+  },
+  handleIncreament() {
+    this.store.dispatch('increament')
   }
 }
 </script>
