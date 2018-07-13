@@ -30,7 +30,6 @@ export default {
       this.$store
         .dispatch('login', loginInfo)
         .then(data => {
-          console.log(data)
           this.$router.push({ path: '/helloworld' }) // 登录成功之后重定向到首页
         })
         .catch(error => {

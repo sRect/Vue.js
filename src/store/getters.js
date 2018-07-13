@@ -10,5 +10,8 @@ export default {
   },
   isLogin(state) {
     return state.isLogin
+  },
+  commonuser(state) {
+    return state.loginInfo.commonuser
   }
 }

@@ -19,6 +19,8 @@ const mutatios = {
   },
   [types.GENERATEROUTES](state, accessedRouters) {
     state.routers = [...state.routers, ...accessedRouters]
+
+    console.log(state.routers)
   }
 }
 

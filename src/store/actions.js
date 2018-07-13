@@ -23,18 +23,24 @@ export default {
       }
     })
   },
-  GenerateRoutes: ({ commit }, role) => {
+  GenerateRoutes: ({ commit, state }, role) => {
+    let roleLowerCase = role.toLowerCase()
+    let accessedRouters = []
+
     return new Promise((resolve) => {
       // 根据权限需要加载的路由
-      const accessedRouters = asyncRouterMap.filter(item => {
-        console.log(item)
-        if (role === types.ADMIN) {
-          return item.meta.role.indexOf(role) > 0
-        } else if (role === types.SUPERADMIN) {
-          return item.meta.role.indexOf(role) > 0
-        }
+      accessedRouters = asyncRouterMap.filter(item => {
+        return item.meta.role.indexOf(roleLowerCase) >= 0
+        // if (role === types.ADMIN) {
+        //   return item.meta.role.indexOf(roleLowerCase) >= 0
+        // } else if (role === types.SUPERADMIN) {
+        //   return item.meta.role.indexOf(roleLowerCase) >= 0
+        // } else {
+        //   return []
+        // }
       })
 
+      console.log(accessedRouters)
       commit(types.GENERATEROUTES, accessedRouters)
       resolve()
     })
