@@ -14,7 +14,8 @@ const mutatios = {
   },
   [types.LOGIN](state, arg) {
     state.loginInfo.currentuser = arg.username
-    state.loginInfo.commonuser.push(arg)
+    console.log(arg)
+    state.loginInfo.commonuser.push(...arg)
     state.isLogin = true
   },
   [types.GENERATEROUTES](state, accessedRouters) {
