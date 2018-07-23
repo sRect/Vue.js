@@ -52,6 +52,9 @@ export const asyncRouterMap = [
     path: '*',
     name: 'Error',
     component: Error,
+    meta: {
+      role: ['admin', 'superadmin', 'commonuser'] // 页面需要的权限
+    },
     redirect: '/error'
   }
 ]

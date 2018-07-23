@@ -8,8 +8,8 @@
     <hr>
     <p>
       <b>权限跳转控制</b> <br>
-      <router-link to="/admin">跳转admin</router-link>
-      <router-link to="/superadmin">跳转超级admin</router-link>
+      <router-link to="/admin" v-if="currentuser === 'admin'">跳转admin</router-link>
+      <router-link to="/superadmin"  v-if="currentuser === 'superadmin'">跳转超级admin</router-link>
     </p>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['num'])
+    ...mapGetters(['num', 'currentuser'])
   },
   methods: {
     handleIncreament() {

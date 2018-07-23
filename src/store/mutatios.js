@@ -14,14 +14,12 @@ const mutatios = {
   },
   [types.LOGIN](state, arg) {
     state.loginInfo.currentuser = arg.username
-    console.log(arg)
-    state.loginInfo.commonuser.push(...arg)
+    // state.loginInfo.commonuser.splice(0, 1, ...arg)
+    state.loginInfo.commonuser.push(arg)
     state.isLogin = true
   },
   [types.GENERATEROUTES](state, accessedRouters) {
-    state.routers = [...state.routers, ...accessedRouters]
-
-    console.log(state.routers)
+    state.routers = [...accessedRouters]
   }
 }
 

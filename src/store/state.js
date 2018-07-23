@@ -1,8 +1,6 @@
-import { constantRouterMap } from '../router'
-
 const state = {
   num: 0,
-  routers: constantRouterMap,
+  routers: null,
   loginInfo: {
     currentuser: '',
     admin: {
