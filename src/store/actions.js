@@ -2,11 +2,34 @@ import * as types from './types'
 import { asyncRouterMap } from '../router'
 
 export default {
-  increament: ({ commit }) => {
-    commit(types.INCREAMENT)
+  // https://vuex.vuejs.org/zh/guide/actions.html#action
+  increament: (context) => {
+    console.log(context)
+    context.commit(types.INCREAMENT)
   },
   decreament: ({ commit }) => {
     commit(types.DECREAMENT)
+  },
+  actionA({commit}) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        commit(types.DOUBLE_INCREAMENT)
+        resolve()
+      }, 1000)
+    })
+  },
+  // actionB({dispatch, commit}) {
+  //   return dispatch('actionA').then(() => {
+  //     commit(types.DOUBLE_DECREAMENT)
+  //   })
+  // },
+  async actionB({ dispatch, commit }) {
+    await dispatch('actionA')
+    commit(types.DOUBLE_DECREAMENT)
+  },
+  increament_radom({commit}, radom) {
+    console.log(111)
+    commit(types.INCREAMENT_RANDOM, radom)
   },
   login: ({ commit, state }, arg) => {
     return new Promise((resolve, reject) => {

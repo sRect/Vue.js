@@ -1,5 +1,5 @@
 const state = {
-  num: 0,
+  num: 100,
   routers: null,
   loginInfo: {
     currentuser: '',
