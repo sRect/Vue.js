@@ -46,6 +46,12 @@ const handleFinisehd = (data) => {
   todosStore.$patch(todosStore.finishedOneTodo(data));
 }
 
+const handleDelete = obj => {
+  todosStore.$patch(todosStore.deleteOne(obj.id));
+
+  state.todoList = todosStore.filterTodos;
+}
+
 const handleSelectChange = (val) => {
   todosStore.filter = val;
 
@@ -91,12 +97,15 @@ onBeforeMount(() => {
             >{{ item.isFinished ? '完成' : '未完成' }}</el-tag>
             <span style="margin-left: 10px;">{{ item.text }}</span>
           </div>
-          <el-button
-            type="primary"
-            size="small"
-            v-show="!item.isFinished"
-            @click="handleFinisehd(item)"
-          >标记完成</el-button>
+          <div>
+            <el-button
+              v-if="item.isFinished"
+              type="danger"
+              size="small"
+              @click="handleDelete(item)"
+            >删除</el-button>
+            <el-button size="small" type="primary" v-else @click="handleFinisehd(item)">标记完成</el-button>
+          </div>
         </div>
       </el-scrollbar>
     </div>

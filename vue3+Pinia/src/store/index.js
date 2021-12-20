@@ -37,5 +37,14 @@ export const useTodosStore = defineStore("todos", {
         isFinished: true,
       });
     },
+    deleteOne(id) {
+      // const index = this.todos.findIndex((item) => item.id === id);
+
+      // this.todos.splice(index, 1);
+
+      this.todos = this.todos.filter((item) => item.id !== id);
+
+      console.log("this.todos", this.todos);
+    },
   },
 });
