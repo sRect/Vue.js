@@ -1,0 +1,20 @@
+{
+  "name": "vue3-pinia",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "element-plus": "^1.2.0-beta.6",
+    "pinia": "^2.0.6",
+    "vue": "^3.2.25"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.0.0",
+    "unplugin-auto-import": "^0.5.3",
+    "unplugin-vue-components": "^0.17.9",
+    "vite": "^2.7.2"
+  }
+}
