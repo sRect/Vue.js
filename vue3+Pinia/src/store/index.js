@@ -46,5 +46,8 @@ export const useTodosStore = defineStore("todos", {
 
       console.log("this.todos", this.todos);
     },
+    setInitialData(arr) {
+      this.todos = [...arr];
+    },
   },
 });

@@ -1,10 +1,11 @@
 <script setup>
-import { ref, readonly, reactive, onBeforeMount } from 'vue';
-import { ElInput, ElButton, ElSelect, ElCard, ElEmpty, ElMessage, ElScrollbar, ElTag } from 'element-plus';
+import { ref, readonly, reactive, onBeforeMount, onMounted } from 'vue';
+import { ElInput, ElButton, ElSelect, ElCard, ElEmpty, ElMessage, ElScrollbar, ElTag, ElLoading } from 'element-plus';
 import { useTodosStore } from "../store";
 import * as types from "../store/types";
 
 const inputVal = ref('');
+const loadingRef = ref(null);
 const value = ref(types.ALL);
 const options = readonly([{
   value: types.FINISHED,
@@ -59,7 +60,39 @@ const handleSelectChange = (val) => {
 }
 
 onBeforeMount(() => {
-  state.todoList = todosStore.todos;
+  loadingRef.value = ElLoading.service({
+    fullscreen: true, lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.7)',
+  });
+
+  fetch("/api/todoList")
+    .then(res => res.json())
+    .then(res => {
+
+      console.log(res);
+      if (res.code === 200) {
+        const arr = res.data;
+        if (Array.isArray(arr)) {
+          todosStore.$patch(todosStore.setInitialData(arr));
+        }
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      setTimeout(() => {
+        loadingRef.value && loadingRef.value.close();
+      }, 1000);
+    });
+});
+
+onMounted(() => {
+  setTimeout(() => {
+    console.log("===>", todosStore.todos)
+    state.todoList = todosStore.todos;
+  }, 1000)
 });
 
 </script>
