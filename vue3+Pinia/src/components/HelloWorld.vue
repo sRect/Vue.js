@@ -3,6 +3,7 @@ import { ref, readonly, reactive, onBeforeMount, onMounted } from 'vue';
 import { ElInput, ElButton, ElSelect, ElCard, ElEmpty, ElMessage, ElScrollbar, ElTag, ElLoading } from 'element-plus';
 import { useTodosStore } from "../store";
 import * as types from "../store/types";
+import { getTodolist } from "../services"
 
 const inputVal = ref('');
 const loadingRef = ref(null);
@@ -66,7 +67,7 @@ onBeforeMount(() => {
     background: 'rgba(0, 0, 0, 0.7)',
   });
 
-  fetch("/api/todoList")
+  getTodolist("2")
     .then(res => res.json())
     .then(res => {
 
@@ -74,6 +75,7 @@ onBeforeMount(() => {
       if (res.code === 200) {
         const arr = res.data;
         if (Array.isArray(arr)) {
+          console.log(arr);
           todosStore.$patch(todosStore.setInitialData(arr));
         }
       }
@@ -86,6 +88,7 @@ onBeforeMount(() => {
         loadingRef.value && loadingRef.value.close();
       }, 1000);
     });
+
 });
 
 onMounted(() => {
@@ -128,7 +131,7 @@ onMounted(() => {
             <el-tag
               :type="item.isFinished ? 'success' : 'warning'"
             >{{ item.isFinished ? '完成' : '未完成' }}</el-tag>
-            <span style="margin-left: 10px;">{{ item.text }}</span>
+            <span style="margin-left: 10px;">{{ item.msg }}</span>
           </div>
           <div>
             <el-button
