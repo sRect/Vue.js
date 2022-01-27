@@ -4,17 +4,17 @@ import * as types from "./types";
 // https://pinia.esm.dev/introduction.html#a-more-realistic-example
 export const useTodosStore = defineStore("todos", {
   state: () => ({
-    /** @type {{ text: string, id: number, isFinished: boolean }[]} */
+    /** @type {{ msg: string, id: string, is_finished: boolean, create_time: date }[]} */
     todos: [],
     filter: types.ALL,
     nextId: 0,
   }),
   getters: {
     finishedTodos(state) {
-      return state.todos.filter((todo) => todo.isFinished);
+      return state.todos.filter((todo) => todo.is_finished);
     },
     unfinishedTodos(state) {
-      return state.todos.filter((todo) => !todo.isFinished);
+      return state.todos.filter((todo) => !todo.is_finished);
     },
     filterTodos(state) {
       if (this.filter === types.FINISHED) {
@@ -27,14 +27,14 @@ export const useTodosStore = defineStore("todos", {
     },
   },
   actions: {
-    addTodos(text) {
-      this.todos.unshift({ text, id: this.nextId++, isFinished: false });
+    addTodos({ id, msg, create_time }) {
+      this.todos.unshift({ id, msg, create_time, is_finished: false });
     },
     finishedOneTodo(obj) {
       const index = this.todos.findIndex((item) => item.id === obj.id);
       this.todos.splice(index, 1, {
         ...obj,
-        isFinished: true,
+        is_finished: true,
       });
     },
     deleteOne(id) {
@@ -43,8 +43,6 @@ export const useTodosStore = defineStore("todos", {
       // this.todos.splice(index, 1);
 
       this.todos = this.todos.filter((item) => item.id !== id);
-
-      console.log("this.todos", this.todos);
     },
     setInitialData(arr) {
       this.todos = [...arr];

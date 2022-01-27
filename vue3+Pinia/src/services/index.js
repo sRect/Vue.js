@@ -4,36 +4,36 @@ export const getTodolist = (filterType = "2") =>
 
 // 添加数据
 export const addTodolist = (msg, timeStamp) =>
-  fetch("/api/todoList/addTodolist", {
+  fetch("/api/todoList/addOne", {
     method: "POST",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
-    body: {
+    body: JSON.stringify({
       msg,
       timeStamp,
-    },
+    }),
   });
 
 // 删除
 export const deleteTodolist = (id) =>
-  fetch("/api/todoList/deleteTodolist", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-    },
-    body: `id=${id}`,
-  });
-
-// 修改
-export const updateTodolist = (id, newType) =>
-  fetch("/api/todoList/addTodolist", {
+  fetch("/api/todoList/delete", {
     method: "POST",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
-    body: {
-      id,
-      newType,
+    body: JSON.stringify({ id }),
+  });
+
+// 修改
+export const updateTodolist = (id, is_finished) =>
+  fetch("/api/todoList/update", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
     },
+    body: JSON.stringify({
+      id,
+      is_finished: is_finished ? "1" : "0",
+    }),
   });

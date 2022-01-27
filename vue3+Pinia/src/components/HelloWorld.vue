@@ -1,9 +1,10 @@
 <script setup>
 import { ref, readonly, reactive, onBeforeMount, onMounted } from 'vue';
 import { ElInput, ElButton, ElSelect, ElCard, ElEmpty, ElMessage, ElScrollbar, ElTag, ElLoading } from 'element-plus';
+import debounce from "lodash/debounce";
 import { useTodosStore } from "../store";
 import * as types from "../store/types";
-import { getTodolist } from "../services"
+import { getTodolist, addTodolist, updateTodolist, deleteTodolist } from "../services"
 
 const inputVal = ref('');
 const loadingRef = ref(null);
@@ -25,7 +26,8 @@ const state = reactive({
 
 const todosStore = useTodosStore();
 
-const handleAdd = () => {
+// 添加
+const handleAdd = debounce(() => {
   if (!inputVal.value) {
     ElMessage.closeAll();
 
@@ -36,23 +38,76 @@ const handleAdd = () => {
     return;
   }
 
-  todosStore.$patch(todosStore.addTodos(inputVal.value));
-  inputVal.value = "";
-  value.value = types.ALL;
-  todosStore.filter = types.ALL;
+  addTodolist(inputVal.value, new Date().getTime())
+    .then(res => res.json())
+    .then((res) => {
+      if (res && res.code === 200) {
+        const { id, create_time } = res.data;
 
-  state.todoList = todosStore.filterTodos;
-}
+        todosStore.$patch(todosStore.addTodos({ id, msg: inputVal.value, create_time }));
+        inputVal.value = "";
+        value.value = types.ALL;
+        todosStore.filter = types.ALL;
 
-const handleFinisehd = (data) => {
-  todosStore.$patch(todosStore.finishedOneTodo(data));
-}
+        state.todoList = todosStore.filterTodos;
+      }
 
-const handleDelete = obj => {
-  todosStore.$patch(todosStore.deleteOne(obj.id));
+      ElMessage({
+        message: '添加成功',
+        type: 'success',
+      });
+    })
+    .catch(e => {
+      console.log(e);
+      ElMessage({
+        message: '添加失败,请重试',
+        type: 'error',
+      });
+    });
+}, 300);
 
-  state.todoList = todosStore.filterTodos;
-}
+// 修改
+const handleFinisehd = debounce((data) => {
+  updateTodolist(data.id, !data.is_finished)
+    .then(res => res.json())
+    .then(res => {
+      ElMessage({
+        message: '修改成功',
+        type: 'success',
+      });
+
+      todosStore.$patch(todosStore.finishedOneTodo(data));
+    })
+    .catch(e => {
+      console.log(e);
+      ElMessage({
+        message: '修改失败,请重试',
+        type: 'error',
+      });
+    });
+}, 300);
+
+// 删除
+const handleDelete = debounce(obj => {
+  deleteTodolist(obj.id)
+    .then(res => res.json())
+    .then(() => {
+      ElMessage({
+        message: '删除成功',
+        type: 'success',
+      });
+
+      todosStore.$patch(todosStore.deleteOne(obj.id));
+      state.todoList = todosStore.filterTodos;
+    })
+    .catch(e => {
+      console.log(e);
+      ElMessage({
+        message: '删除失败,请重试',
+        type: 'error',
+      });
+    });
+}, 300);
 
 const handleSelectChange = (val) => {
   todosStore.filter = val;
@@ -62,11 +117,13 @@ const handleSelectChange = (val) => {
 
 onBeforeMount(() => {
   loadingRef.value = ElLoading.service({
-    fullscreen: true, lock: true,
+    fullscreen: true,
+    lock: true,
     text: 'Loading',
     background: 'rgba(0, 0, 0, 0.7)',
   });
 
+  // 查询
   getTodolist("2")
     .then(res => res.json())
     .then(res => {
@@ -75,7 +132,6 @@ onBeforeMount(() => {
       if (res.code === 200) {
         const arr = res.data;
         if (Array.isArray(arr)) {
-          console.log(arr);
           todosStore.$patch(todosStore.setInitialData(arr));
         }
       }
@@ -128,19 +184,22 @@ onMounted(() => {
       <el-scrollbar v-else height="300px">
         <div v-for="item in state.todoList" :key="item.id" class="scrollbar-demo-item">
           <div>
-            <el-tag
-              :type="item.isFinished ? 'success' : 'warning'"
-            >{{ item.isFinished ? '完成' : '未完成' }}</el-tag>
-            <span style="margin-left: 10px;">{{ item.msg }}</span>
-          </div>
-          <div>
-            <el-button
-              v-if="item.isFinished"
-              type="danger"
-              size="small"
-              @click="handleDelete(item)"
-            >删除</el-button>
-            <el-button size="small" type="primary" v-else @click="handleFinisehd(item)">标记完成</el-button>
+            <div class="content">
+              <el-tag
+                :type="item.is_finished ? 'success' : 'warning'"
+              >{{ item.is_finished ? '完成' : '未完成' }}</el-tag>
+              <span style="margin-left: 10px;">{{ item.msg }}</span>
+              <el-button
+                v-if="item.is_finished"
+                type="danger"
+                size="small"
+                @click="handleDelete(item)"
+              >删除</el-button>
+              <el-button size="small" type="primary" v-else @click="handleFinisehd(item)">标记完成</el-button>
+            </div>
+            <div class="time">
+              <el-tag type="info">{{ item.create_time }}</el-tag>
+            </div>
           </div>
         </div>
       </el-scrollbar>
@@ -156,16 +215,25 @@ onMounted(() => {
   text-align: right;
   margin: 10px 0;
 }
+
 .scrollbar-demo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 50px;
+  height: 70px;
   margin: 10px;
   padding: 10px;
   border-radius: 4px;
   background: var(--el-color-info-lighter);
   color: var(--el-color-primary);
   box-sizing: border-box;
+}
+
+.scrollbar-demo-item .time {
+  margin-top: 5px;
+  display: flex;
+}
+
+.scrollbar-demo-item .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
